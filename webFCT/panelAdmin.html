@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Admin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body class="bg-light">
+    <div class="container mt-4">
+      <h1 class="mb-4 text-center">Panel de Admin</h1>
+      <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
+      <h3 class="mt-4">Registro de Profesores</h3>
+
+      <!-- Formulario de registro -->
+      <div class="contenedorFormularios mt-3">
+        <div class="formulario p-4 border shadow bg-white rounded">
+          <form @submit.prevent="registrar">
+            <label for="nombre">Nombre:</label>
+            <input type="text" v-model="nuevoProfesor.nombre" id="nombre" />
+            <br /><br />
+            <label for="id">ID:</label>
+            <input type="text" v-model="nuevoProfesor.id" id="id" />
+            <br /><br />
+            <label for="email">Email:</label>
+            <input type="text" v-model="nuevoProfesor.email" id="email" />
+            <br /><br />
+            <label for="telefono">Teléfono:</label>
+            <input type="text" v-model="nuevoProfesor.telefono" id="telefono" />
+            <br /><br />
+            <label for="direccion">Dirección:</label>
+            <input type="text" v-model="nuevoProfesor.direccion" id="direccion" />
+            <br /><br />
+            <label for="fechaDeNacimiento">Fecha de Nacimiento:</label>
+            <input type="text" v-model="nuevoProfesor.fechaDeNacimiento" id="fechaDeNacimiento" />
+            <br /><br />
+            <label for="genero">Género:</label>
+            <input type="text" v-model="nuevoProfesor.genero" id="genero" />
+            <br /><br />
+            <label for="rol">Rol:</label>
+            <input type="text" v-model="nuevoProfesor.rol" id="rol" />
+            <br /><br />
+            <label for="departamento">Departamento:</label>
+            <input type="text" v-model="nuevoProfesor.departamento" id="departamento" />
+            <br /><br />
+            <label for="tipoDeContrato">Tipo de Contrato:</label>
+            <select v-model="nuevoProfesor.tipoDeContrato" id="tipoDeContrato">
+              <option value="Tiempo Completo">Tiempo completo</option>
+              <option value="Medio Tiempo">Medio tiempo</option>
+              <option value="Sustituto">Sustituto</option>
+            </select>
+            <br /><br />
+            <label for="fechaIngreso">Fecha de Ingreso:</label>
+            <input type="date" v-model="nuevoProfesor.fechaIngreso" id="fechaIngreso" />
+            <br /><br />
+            <label for="estadoProfesor">Estado del Profesor:</label>
+            <select v-model="nuevoProfesor.estadoProfesor" id="estadoProfesor">
+              <option value="Activo">Activo</option>
+              <option value="En licencia">En licencia</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+            <br /><br />
+            <label for="centro">Centro:</label>
+            <select v-model="nuevoProfesor.centro" id="centro">
+              <option value="IES 1">IES 1</option>
+              <option value="IES 2">IES 2</option>
+            </select>
+            <br /><br />
+            <label for="fotoPerfil">Foto de Perfil:</label>
+            <input type="file" v-model="nuevoProfesor.fotoPerfil" id="fotoPerfil" accept="image/*" />
+            <br /><br />
+            <label for="notasAdicionales">Notas Adicionales:</label>
+            <textarea v-model="nuevoProfesor.notasAdicionales" id="notasAdicionales" rows="4" cols="50"></textarea>
+            <br /><br />
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" v-model="nuevoProfesor.contrasena" id="contrasena" />
+            <br /><br />
+            <button @click="registrar" type="submit" class="btn btn-danger">Registrar</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Sección para mostrar los profesores -->
+      <h3 class="mt-4">Listado de Profesores</h3>
+      <div id="app">
+        <div
+          v-for="profesor in listadoProfesores"
+          class="profesor-card mb-4 p-3 border rounded bg-white"
+        >
+          <h5>{{ profesor.nombre }}</h5>
+          <p><strong>ID:</strong> {{ profesor.codigo }}</p>
+          <p><strong>Departamento:</strong> {{ profesor.departamento }}</p>
+          <p><strong>Email:</strong> {{ profesor.email }}</p>
+          <p><strong>Teléfono:</strong> {{ profesor.telefono }}</p>
+          <p><strong>Dirección:</strong> {{ profesor.direccion }}</p>
+          <p><strong>Fecha de Nacimiento:</strong> {{ profesor.fechaDeNacimiento }}</p>
+          <p><strong>Género:</strong> {{ profesor.genero }}</p>
+          <p><strong>Rol:</strong> {{ profesor.rol }}</p>
+          <p><strong>Tipo de Contrato:</strong> {{ profesor.tipoDeContrato }}</p>
+          <p><strong>Fecha de Ingreso:</strong> {{ profesor.fechaIngreso }}</p>
+          <p><strong>Estado:</strong> {{ profesor.estadoProfesor }}</p>
+          <p><strong>Centro:</strong> {{ profesor.centro }}</p>
+          <p><strong>Notas Adicionales:</strong> {{ profesor.notasAdicionales }}</p>
+          <p><strong>Foto de Perfil:</strong>
+            <img :src="profesor.fotoPerfil" alt="Foto" width="100" />
+          </p>
+          <!-- Botón para eliminar -->
+          <button @click="eliminar(profesor)" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+            listadoProfesores: [],
+          };
+        },
+        mounted() {
+          axios
+            .get("datos.json")
+            .then((response) => {
+              this.listadoProfesores = response.data.profesores;
+            })
+            .catch((error) => {
+              console.error("Error al cargar datos:", error);
+            });
+        },
+        methods: {
+          eliminar(profesor) {
+            alert(`Profesor ${profesor.nombre} eliminado`);
+          },
+          registrar() {
+            alert(`Profesor ${this.nuevoProfesor.nombre} registrado`);
+          }
+        }
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

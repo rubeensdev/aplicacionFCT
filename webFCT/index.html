@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de login</title>
+    <!-- Agregar Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+      <div class="contenedorFormularios">
+        <div class="formulario p-4 border shadow bg-white rounded">
+          <h1 class="mb-4 text-center">Formulario de login</h1>
+          <form action="" method="post">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" name="nombre" id="nombre" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="contrasena" class="form-label">Contraseña:</label>
+              <input
+                type="password"
+                name="contrasena"
+                id="contrasena"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agregar Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombre').value;
+        const contrasena = document.getElementById('contrasena').value;
+
+        if (nombre === 'admin' && contrasena === 'admin') {
+          window.location.href = 'panelAdmin.html';
+        } else if (nombre === 'profesor' && contrasena === 'profesor') {
+          window.location.href = 'panelProfesor.html';
+        } else if (nombre === 'tutor' && contrasena === 'tutor') {
+          window.location.href = 'panelTutorDeCentro.html';
+        } else {
+          alert('Usuario o contraseña incorrectos');
+        }
+      });
+    </script>
+  </body>
+</html>

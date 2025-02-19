@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panel de Tutor de Centro</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="container mt-4">
+    <h1 class="text-center mb-4">Panel de Tutor de Centro</h1>
+    <div class="text-end mb-3">
+      <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
+    </div>
+
+    <div class="row">
+      <!-- Columna izquierda: Formularios -->
+
+
+      <!-- Columna derecha: Listados -->
+      <div>
+        <div id="app">
+          <div class="p-4 border shadow bg-white rounded mb-4">
+            <h4>Estado de Convenios</h4>
+            <div v-for="alumno in listado" :key="alumno.codigo">
+              <strong>{{ alumno.nombre }}</strong> - {{ alumno.clase }} -
+              <div class="mt-2">
+                <label for="estadoConvenio" class="form-label">Estado del Convenio:</label>
+                <select v-model="alumno.estadoConvenio" class="form-select mt-2">
+                  <option value="Pendiente realización de CONVENIO">Pendiente realización de CONVENIO</option>
+                  <option value="Pendiente envío de empresa">Pendiente envío de empresa</option>
+                  <option value="Pendiente firma de empresa">Pendiente firma de empresa</option>
+                  <option value="Pendiente firma director">Pendiente firma director</option>
+                  <option value="Pendiente firma Comunidad de Madrid">Pendiente firma Comunidad de Madrid</option>
+                  <option value="Enviado a empresa">Enviado a empresa</option>
+                  <option value="FINALIZADO">FINALIZADO</option>
+                </select>
+              </div>
+              <button @click="actualizarEstadoConvenio" class="btn btn-warning btn-sm float-end mt-2">
+                Actualizar Estado
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vue y Axios -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+            listado: [],
+            listadoEmpresas: [],
+            listadoContactosEmpresa: [],
+          };
+        },
+        mounted() {
+          axios
+            .get("datos.json") // Asegúrate de que el archivo se llama 'datos.json'
+            .then((response) => {
+              this.listado = response.data.alumnos; // Accede a la sección "alumnos"
+              this.listadoEmpresas = response.data.empresas; // Accede a la sección "empresas"
+              this.listadoContactosEmpresa = response.data.contactosEmpresas; // Accede a la sección "contactosEmpresas"
+            })
+            .catch((error) => {
+              console.error("Hubo un error al cargar los datos:", error);
+            });
+        },
+        methods: {
+          actualizarAlumno() {
+            alert("Alumno actualizado");
+          },
+          registrarAlumno() {
+            alert("Alumno registrado");
+          },
+          actualizarEstadoConvenio() {
+           alert(`Estado del convenio actualizado`);
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

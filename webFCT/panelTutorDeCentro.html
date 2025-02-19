@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panel de Tutor de Centro</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="container mt-4">
+    <h1 class="text-center mb-4">Panel de Tutor de Centro</h1>
+    <div class="text-end mb-3">
+      <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
+    </div>
+
+    <div class="row">
+      <!-- Columna izquierda: Formularios -->
+      <div class="col-md-6">
+        <!-- Registro de Empresas -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h3>Registro de Empresas</h3>
+          </div>
+          <div class="card-body">
+            <form @submit.prevent="registrarEmpresa">
+              <div class="mb-3">
+                <label for="idEmpresa" class="form-label"
+                  >ID de la Empresa</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idEmpresa"
+                  placeholder="EMP123456"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="nombreEmpresa" class="form-label"
+                  >Nombre de la Empresa</label
+                >
+                <input type="text" class="form-control" id="nombreEmpresa" />
+              </div>
+              <div class="mb-3">
+                <label for="razonSocial" class="form-label">Razón Social</label>
+                <input type="text" class="form-control" id="razonSocial" />
+              </div>
+              <div class="mb-3">
+                <label for="tipoEmpresa" class="form-label"
+                  >Tipo de Empresa</label
+                >
+                <select class="form-select" id="tipoEmpresa">
+                  <option value="">Seleccione un tipo</option>
+                  <option value="SA">Sociedad Anónima</option>
+                  <option value="SL">Sociedad Limitada</option>
+                  <option value="Autonomo">Autónomo</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" />
+              </div>
+              <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" />
+              </div>
+              <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <textarea
+                  class="form-control"
+                  id="direccion"
+                  rows="2"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="ciudad" class="form-label">Ciudad</label>
+                <input type="text" class="form-control" id="ciudad" />
+              </div>
+              <button type="submit" class="btn btn-success">
+                Registrar Empresa
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Registro de Persona de Contacto -->
+        <div class="card">
+          <div class="card-header bg-secondary text-white">
+            <h3>Registro de Persona de Contacto</h3>
+          </div>
+          <div class="card-body">
+            <form @submit.prevent="registrarPersonaEmpresa">
+              <div class="mb-3">
+                <label for="idContacto" class="form-label"
+                  >ID de Persona de Contacto</label
+                >
+                <input type="text" class="form-control" id="idContacto" />
+              </div>
+              <div class="mb-3">
+                <label for="nombreCompleto" class="form-label"
+                  >Nombre Completo</label
+                >
+                <input type="text" class="form-control" id="nombreCompleto" />
+              </div>
+              <div class="mb-3">
+                <label for="cargo" class="form-label">Cargo o Puesto</label>
+                <input type="text" class="form-control" id="cargo" />
+              </div>
+              <div class="mb-3">
+                <label for="emailContacto" class="form-label"
+                  >Correo Electrónico</label
+                >
+                <input type="email" class="form-control" id="emailContacto" />
+              </div>
+              <div class="mb-3">
+                <label for="telefonoContacto" class="form-label"
+                  >Teléfono</label
+                >
+                <input type="tel" class="form-control" id="telefonoContacto" />
+              </div>
+              <button type="submit" class="btn btn-success">
+                Registrar Contacto
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Listados y Formulario de Programa y Horario -->
+      <div class="col-md-6">
+        <div id="app">
+          <div class="p-4 border shadow bg-white rounded mb-4">
+            <h4>Alumnos</h4>
+            <h5>
+              Asignar todos los alumnos a PENDIENTE DE ASIGNACION DE PRACTICAS
+            </h5>
+            <label for="cursoSeleccionado" class="form-label"
+              >Seleccionar Curso:</label
+            >
+            <select v-model="cursoSeleccionado" class="form-select mb-3">
+              <option v-for="curso in cursosUnicos" :key="curso" :value="curso">
+                {{ curso }}
+              </option>
+            </select>
+
+            <button @click="asignarTodosAlumnos" class="btn btn-primary mb-3">
+              Asignar
+            </button>
+            <br />
+            <h5>Modificar Alumno</h5>
+            <div v-for="alumno in alumnosFiltrados" :key="alumno.codigo">
+              <br /><br />
+              <h6>{{alumno.nombre}}</h6>
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.nombre"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.clase"
+              />
+              <input
+                type="date"
+                class="form-control mb-2"
+                v-model="alumno.fechaNacimiento"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.genero"
+              />
+              <input
+                type="email"
+                class="form-control mb-2"
+                v-model="alumno.email"
+              />
+              <input
+                type="tel"
+                class="form-control mb-2"
+                v-model="alumno.telefono"
+              />
+              <textarea
+                class="form-control mb-2"
+                rows="2"
+                v-model="alumno.direccion"
+              ></textarea>
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.centroEducativo"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.tutor"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.estadoAlumno"
+              />
+              <input
+                type="date"
+                class="form-control mb-2"
+                v-model="alumno.fechaInscripcion"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.fotoPerfil"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                v-model="alumno.notasAcademicas"
+              />
+              <textarea
+                class="form-control mb-2"
+                rows="2"
+                v-model="alumno.observaciones"
+              ></textarea>
+              <select
+                v-model="alumno.estado_practicas"
+                class="form-select mt-2"
+              >
+                <option value="NO REALIZA PRACTICAS">
+                  NO REALIZA PRACTICAS
+                </option>
+                <option value="PENDIENTE ASIGNACION DE PRACTICAS">
+                  PENDIENTE ASIGNACION DE PRACTICAS
+                </option>
+                <option value="ASIGNADO A EMPRESA">ASIGNADO A EMPRESA</option>
+                <option value="FINALIZADAS">FINALIZADAS</option>
+              </select>
+              <button
+                @click="actualizarAlumno(alumno.codigo)"
+                class="btn btn-danger btn-sm float-end mt-2"
+              >
+                Actualizar
+              </button>
+            </div>
+          </div>
+
+          <!-- Programa y Horario -->
+          <div class="p-4 border shadow bg-white rounded mb-4">
+            <h4>Enviar citacion tutoria</h4>
+            <form @submit.prevent="progamarTutoria">
+              <div class="mb-3">
+                <label for="selectClase" class="form-label"
+                  >Seleccionar Clase</label
+                >
+                <select class="form-select" id="selectClase">
+                  <option value="Clase A">Clase A</option>
+                  <option value="Clase B">Clase B</option>
+                  <option value="Clase C">Clase C</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="fechaPrograma" class="form-label"
+                  >Fecha de la tutoria</label
+                >
+                <input type="date" class="form-control" id="fechaPrograma" />
+              </div>
+              <button type="submit" class="btn btn-success">
+                Programar tutoria
+              </button>
+            </form>
+          </div>
+          <div class="p-4 border shadow bg-white rounded mb-4">
+            <button @click="redirigirRealizarConvenio" class="btn btn-success">
+              Realizar convenio
+            </button>
+          </div>
+          <div class="p-4 border shadow bg-white rounded mb-4">
+            <button @click="redirigirFirmarRelacion" class="btn btn-success">
+              Firmar relación del alumno
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+            listado: [],
+            listadoEmpresas: [],
+            listadoContactosEmpresa: [],
+            cursoSeleccionado: "",
+          };
+        },
+        computed: {
+          cursosUnicos() {
+            return [...new Set(this.listado.map((alumno) => alumno.clase))];
+          },
+          alumnosFiltrados() {
+            if (!this.cursoSeleccionado) {
+              return this.listado;
+            }
+            return this.listado.filter(
+              (alumno) => alumno.clase === this.cursoSeleccionado
+            );
+          },
+        },
+        mounted() {
+          axios
+            .get("datos.json")
+            .then((response) => {
+              this.listado = response.data.alumnos;
+              this.listadoEmpresas = response.data.empresas;
+              this.listadoContactosEmpresa = response.data.contactosEmpresas;
+            })
+            .catch((error) => {
+              console.error("Error al cargar datos:", error);
+            });
+        },
+        methods: {
+          actualizarAlumno(codigo) {
+            alert(`Alumno actualizado`);
+          },
+          asignarTodosAlumnos() {
+            if (!this.cursoSeleccionado) {
+              alert("Selecciona un curso");
+              return;
+            }
+            this.listado.forEach((alumno) => {
+              if (alumno.clase === this.cursoSeleccionado) {
+                alumno.estado_practicas = "PENDIENTE ASIGNACION DE PRACTICAS";
+              }
+            });
+            alert(
+              `Todos los alumnos de ${this.cursoSeleccionado} fueron asignados`
+            );
+          },
+          registrarEmpresa() {
+            alert("Empresa registrada");
+          },
+          registrarPersonaEmpresa() {
+            alert("Persona de contacto registrada");
+          },
+          progamarTutoria() {
+            alert("Tutoria programada");
+          },
+          redirigirRealizarConvenio() {
+            window.location.href = "realizarConvenio.html";
+          },
+          redirigirFirmarRelacion() {
+            window.location.href = "firmarRelacion.html";
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
