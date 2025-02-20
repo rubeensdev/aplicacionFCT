@@ -14,14 +14,40 @@
   </head>
 
   <body class="bg-light">
-    <div class="container mt-4">
-      <h1 class="mb-4">Panel de Profesor</h1>
-      <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
-      <h3 class="mt-3">Registro de Alumnos</h3>
+    <div id="app" data-v-app="">
+      <div class="container mt-4">
+        <h1 class="mb-4 text-center">Panel de Profesor</h1>
+        <div class="d-flex gap-3 mb-4 justify-content-center">
+          <button
+            class="btn btn-primary"
+            @click="ocultarCampo('registroAlumnos')"
+          >
+            {{ mostrarRegistroAlumnos ? 'Ocultar registro de alumnos' : 'Mostrar registro de alumnos' }}
+          </button>
+          <button
+            class="btn btn-primary"
+            @click="ocultarCampo('listadoAlumnos')"
+          >
+            {{ mostrarAlumnos ? 'Ocultar listado de alumnos' : 'Mostrar listado de alumnos' }}
+          </button>
+          <button
+            class="btn btn-primary"
+            @click="ocultarCampo('listadoEmpresas')"
+          >
+            {{ mostrarEmpresas ? 'Ocultar listado de empresas' : 'Mostrar listado de empresas' }}
+          </button>
+          <button
+            class="btn btn-primary"
+            @click="ocultarCampo('listadoContactos')"
+          >
+            {{ mostrarContactos ? 'Ocultar listado de contactos' : 'Mostrar listado de contactos' }}
+          </button>
+          <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
+        </div>
 
-      <div class="row">
-        <!-- Columna para el formulario de registro de alumno -->
-        <div class="col-md-6">
+        <!-- Registro de Alumnos -->
+        <div v-if="mostrarRegistroAlumnos">
+          <h3 class="mt-3">Registro de Alumnos</h3>
           <div class="p-4 border shadow bg-white rounded">
             <label for="idAlumno" class="form-label">ID del Alumno:</label>
             <input
@@ -29,6 +55,7 @@
               name="idAlumno"
               id="idAlumno"
               class="form-control"
+              v-model="nuevoAlumno.id"
             />
 
             <label for="nombreCompleto" class="form-label mt-2"
@@ -39,6 +66,7 @@
               name="nombreCompleto"
               id="nombreCompleto"
               class="form-control"
+              v-model="nuevoAlumno.nombre"
             />
 
             <label for="fechaNacimiento" class="form-label mt-2"
@@ -49,10 +77,11 @@
               name="fechaNacimiento"
               id="fechaNacimiento"
               class="form-control"
+              v-model="nuevoAlumno.fechaNacimiento"
             />
 
             <label for="genero" class="form-label mt-2">Género:</label>
-            <select name="genero" id="genero" class="form-select">
+            <select name="genero" id="genero" class="form-select" v-model="nuevoAlumno.genero">
               <option value="">Seleccione una opción</option>
               <option value="Masculino">Masculino</option>
               <option value="Femenino">Femenino</option>
@@ -63,7 +92,7 @@
             <label for="email" class="form-label mt-2"
               >Correo Electrónico:</label
             >
-            <input type="email" name="email" id="email" class="form-control" />
+            <input type="email" name="email" id="email" class="form-control" v-model="nuevoAlumno.email" />
 
             <label for="telefono" class="form-label mt-2"
               >Número de Teléfono:</label
@@ -75,6 +104,7 @@
               class="form-control"
               pattern="[+][0-9]{2} [0-9]{9}"
               placeholder="+34 612345678"
+              v-model="nuevoAlumno.telefono"
             />
 
             <label for="direccion" class="form-label mt-2">Dirección:</label>
@@ -83,6 +113,7 @@
               id="direccion"
               class="form-control"
               rows="3"
+              v-model="nuevoAlumno.direccion"
             ></textarea>
 
             <label for="centroEducativo" class="form-label mt-2"
@@ -92,6 +123,7 @@
               name="centroEducativo"
               id="centroEducativo"
               class="form-select"
+              v-model="nuevoAlumno.centroEducativo"
             >
               <option value="">Seleccione un centro</option>
               <option value="IES 1">IES 1</option>
@@ -106,407 +138,105 @@
           </div>
         </div>
 
-        <!-- Columna para mostrar la información de alumnos, empresas y contactos -->
-        <div id="app" class="col-md-6">
+        <!-- Listado de Alumnos -->
+        <div v-if="mostrarAlumnos">
+          <h3 class="mt-3">Listado de Alumnos</h3>
           <div class="p-4 border shadow bg-white rounded">
-            <h4 @click="ocultarCampo('alumnos')">Tus alumnos</h4>
-            <div v-if="mostrarAlumnos">
-              <div v-for="alumno in listado" :key="alumno.codigo">
-                <br>
-                <h4>{{alumno.nombre}}</h4>
-                <label for="nombre">Nombre:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.nombre"
-                />
-
-                <label for="clase">Clase:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.clase"
-                />
-
-                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                <input
-                  type="date"
-                  class="form-control mb-2"
-                  v-model="alumno.fechaNacimiento"
-                />
-
-                <label for="genero">Género:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.genero"
-                />
-
-                <label for="email">Correo Electrónico:</label>
-                <input
-                  type="email"
-                  class="form-control mb-2"
-                  v-model="alumno.email"
-                />
-
-                <label for="telefono">Número de Teléfono:</label>
-                <input
-                  type="tel"
-                  class="form-control mb-2"
-                  v-model="alumno.telefono"
-                />
-
-                <label for="direccion">Dirección:</label>
-                <textarea
-                  class="form-control mb-2"
-                  rows="2"
-                  v-model="alumno.direccion"
-                ></textarea>
-
-                <label for="centroEducativo">Centro Educativo:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.centroEducativo"
-                />
-
-                <label for="tutor">Tutor:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.tutor"
-                />
-
-                <label for="estadoAlumno">Estado del Alumno:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.estadoAlumno"
-                />
-
-                <label for="fechaInscripcion">Fecha de Inscripción:</label>
-                <input
-                  type="date"
-                  class="form-control mb-2"
-                  v-model="alumno.fechaInscripcion"
-                />
-
-                <label for="fotoPerfil">Foto de Perfil:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.fotoPerfil"
-                />
-
-                <label for="notasAcademicas">Notas Académicas:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="alumno.notasAcademicas"
-                />
-
-                <label for="observaciones">Observaciones:</label>
-                <textarea
-                  class="form-control mb-2"
-                  rows="2"
-                  v-model="alumno.observaciones"
-                ></textarea>
-
-                <label for="estadoPracticas">Estado de Prácticas:</label>
-                <select
-                  v-model="alumno.estado_practicas"
-                  class="form-select mt-2"
-                >
-                  <option value="NO REALIZA PRACTICAS">
-                    NO REALIZA PRACTICAS
-                  </option>
-                  <option value="PENDIENTE ASIGNACION DE PRACTICAS">
-                    PENDIENTE ASIGNACION DE PRACTICAS
-                  </option>
-                  <option value="ASIGNADO A EMPRESA">ASIGNADO A EMPRESA</option>
-                  <option value="FINALIZADAS">FINALIZADAS</option>
-                </select>
-                <button
-                  @click="actualizarAlumno(alumno.codigo)"
-                  class="btn btn-danger btn-sm float-end mt-2"
-                >
-                  Actualizar
-                </button>
-              </div>
-            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="alumno in listado" :key="alumno.id">
+                  <td>{{ alumno.id }}</td>
+                  <td>{{ alumno.nombre }}</td>
+                  <td>{{ alumno.email }}</td>
+                  <td>{{ alumno.telefono }}</td>
+                  <td>
+                    <button class="btn btn-warning btn-sm" @click="actualizarAlumno(alumno.id)">
+                      Actualizar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </div>
 
-          <div class="p-4 border shadow bg-white rounded mt-3">
-            <h4 @click="ocultarCampo('empresas')">Empresas solicitantes</h4>
-            <div v-if="mostrarEmpresas">
-              <div v-for="empresa in listadoEmpresas" :key="empresa.codigo">
-                <br>
-                <h4>{{empresa.nombre}}</h4>
-                <label for="nombre">Nombre:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.nombre"
-                />
-
-                <label for="razonSocial">Razón Social:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.razonSocial"
-                />
-
-                <label for="tipo">Tipo:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.tipo"
-                />
-
-                <label for="nif">NIF:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.nif"
-                />
-
-                <label for="email">Correo Electrónico:</label>
-                <input
-                  type="email"
-                  class="form-control mb-2"
-                  v-model="empresa.email"
-                />
-
-                <label for="telefono">Número de Teléfono:</label>
-                <input
-                  type="tel"
-                  class="form-control mb-2"
-                  v-model="empresa.telefono"
-                />
-
-                <label for="direccion">Dirección:</label>
-                <textarea
-                  class="form-control mb-2"
-                  rows="2"
-                  v-model="empresa.direccion"
-                ></textarea>
-
-                <label for="ciudad">Ciudad:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.ciudad"
-                />
-
-                <label for="codigoPostal">Código Postal:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.codigoPostal"
-                />
-
-                <label for="pais">País:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.pais"
-                />
-
-                <label for="fechaConstitucion">Fecha de Constitución:</label>
-                <input
-                  type="date"
-                  class="form-control mb-2"
-                  v-model="empresa.fechaConstitucion"
-                />
-
-                <label for="sector">Sector:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.sector"
-                />
-
-                <label for="numeroEmpleados">Número de Empleados:</label>
-                <input
-                  type="number"
-                  class="form-control mb-2"
-                  v-model="empresa.numeroEmpleados"
-                />
-
-                <label for="sitioWeb">Sitio Web:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.sitioWeb"
-                />
-
-                <label for="logo">Logo:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.logo"
-                />
-
-                <label for="representanteLegal">Representante Legal:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.representanteLegal"
-                />
-
-                <label for="estadoEmpresa">Estado de la Empresa:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="empresa.estadoEmpresa"
-                />
-
-                <label for="fechaAlta">Fecha de Alta:</label>
-                <input
-                  type="date"
-                  class="form-control mb-2"
-                  v-model="empresa.fechaAlta"
-                />
-
-                <label for="notasAdicionales">Notas Adicionales:</label>
-                <textarea
-                  class="form-control mb-2"
-                  rows="2"
-                  v-model="empresa.notasAdicionales"
-                ></textarea>
-
-                <button
-                  @click="actualizarEmpresa(empresa.codigo)"
-                  class="btn btn-danger btn-sm float-end mt-2"
-                >
-                  Actualizar
-                </button>
-              </div>
-            </div>
+        <!-- Listado de Empresas -->
+        <div v-if="mostrarEmpresas">
+          <h3 class="mt-3">Listado de Empresas</h3>
+          <div class="p-4 border shadow bg-white rounded">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                  <th>Estado</th>
+                  <th>Observaciones</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="empresa in listadoEmpresas" :key="empresa.codigo">
+                  <td>{{ empresa.nombre }}</td>
+                  <td>{{ empresa.email }}</td>
+                  <td>{{ empresa.telefono }}</td>
+                  <td>
+                    <select class="form-select" v-model="empresa.estadoContacto">
+                      <option value="Sin contactar">Sin contactar</option>
+                      <option value="Contactado">Contactado</option>
+                      <option value="Admite alumnos">Admite alumnos</option>
+                      <option value="No admite alumnos">No admite alumnos</option>
+                    </select>
+                  </td>
+                  <td>
+                    <textarea class="form-control" rows="2" v-model="empresa.observaciones"></textarea>
+                  </td>
+                  <td>
+                    <button class="btn btn-warning btn-sm" @click="actualizarEmpresa(empresa.codigo)">
+                      Actualizar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </div>
 
-          <div class="p-4 border shadow bg-white rounded mt-3">
-            <h4 @click="ocultarCampo('contactos')">Contacto Empresas</h4>
-            <div v-if="mostrarContactos">
-              <div
-                v-for="contacto in listadoContactosEmpresa"
-                :key="contacto.empresaCodigo"
-              >
-              <br>
-              <h4>{{contacto.nombreContacto}} - {{contacto.nombreEmpresa}}</h4>
-                <label for="nombreContacto">Nombre de Contacto:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.nombreContacto"
-                />
-
-                <label for="cargo">Cargo:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.cargo"
-                />
-
-                <label for="departamento">Departamento:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.departamento"
-                />
-
-                <label for="email">Correo Electrónico:</label>
-                <input
-                  type="email"
-                  class="form-control mb-2"
-                  v-model="contacto.email"
-                />
-
-                <label for="telefono">Número de Teléfono:</label>
-                <input
-                  type="tel"
-                  class="form-control mb-2"
-                  v-model="contacto.telefono"
-                />
-
-                <label for="extension">Extensión:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.extension"
-                />
-
-                <label for="direccionOficina">Dirección de la Oficina:</label>
-                <textarea
-                  class="form-control mb-2"
-                  rows="2"
-                  v-model="contacto.direccionOficina"
-                ></textarea>
-
-                <label for="horarioTrabajo">Horario de Trabajo:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.horarioTrabajo"
-                />
-
-                <label for="nivelAcceso">Nivel de Acceso:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.nivelAcceso"
-                />
-
-                <label for="relacionEmpresa">Relación con la Empresa:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.relacionEmpresa"
-                />
-
-                <label for="fechaIngreso">Fecha de Ingreso:</label>
-                <input
-                  type="date"
-                  class="form-control mb-2"
-                  v-model="contacto.fechaIngreso"
-                />
-
-                <label for="fotoPerfil">Foto de Perfil:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.fotoPerfil"
-                />
-
-                <label for="observaciones">Observaciones:</label>
-                <textarea
-                  class="form-control mb-2"
-                  rows="2"
-                  v-model="contacto.observaciones"
-                ></textarea>
-
-                <label for="estadoContacto">Estado del Contacto:</label>
-                <input
-                  type="text"
-                  class="form-control mb-2"
-                  v-model="contacto.estadoContacto"
-                />
-
-                <label for="notasAdicionales">Notas Adicionales:</label>
-                <textarea
-                  class="form-control mb-2"
-                  rows="2"
-                  v-model="contacto.notasAdicionales"
-                ></textarea>
-
-                <button
-                  @click="actualizarContacto(contacto.empresaCodigo)"
-                  class="btn btn-danger btn-sm float-end mt-2"
-                >
-                  Actualizar
-                </button>
-              </div>
-            </div>
+        <!-- Listado de Contactos -->
+        <div v-if="mostrarContactos">
+          <h3 class="mt-3">Listado de Contactos</h3>
+          <div class="p-4 border shadow bg-white rounded">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="contacto in listadoContactosEmpresa" :key="contacto.empresaCodigo">
+                  <td>{{ contacto.nombreContacto }}</td>
+                  <td>{{ contacto.email }}</td>
+                  <td>{{ contacto.telefono }}</td>
+                  <td>
+                    <button class="btn btn-warning btn-sm" @click="actualizarContacto(contacto.empresaCodigo)">
+                      Actualizar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -521,9 +251,20 @@
             listado: [],
             listadoEmpresas: [],
             listadoContactosEmpresa: [],
+            mostrarRegistroAlumnos: false,
             mostrarAlumnos: false,
             mostrarEmpresas: false,
             mostrarContactos: false,
+            nuevoAlumno: {
+              id: '',
+              nombre: '',
+              fechaNacimiento: '',
+              genero: '',
+              email: '',
+              telefono: '',
+              direccion: '',
+              centroEducativo: ''
+            }
           };
         },
         mounted() {
@@ -540,19 +281,37 @@
         },
         methods: {
           ocultarCampo(seccion) {
-            if (seccion === "alumnos") {
-              this.mostrarAlumnos = !this.mostrarAlumnos;
-            } else if (seccion === "empresas") {
-              this.mostrarEmpresas = !this.mostrarEmpresas;
-            } else if (seccion === "contactos") {
-              this.mostrarContactos = !this.mostrarContactos;
+            this.mostrarRegistroAlumnos = false;
+            this.mostrarAlumnos = false;
+            this.mostrarEmpresas = false;
+            this.mostrarContactos = false;
+
+            if (seccion === "registroAlumnos") {
+              this.mostrarRegistroAlumnos = true;
+            } else if (seccion === "listadoAlumnos") {
+              this.mostrarAlumnos = true;
+            } else if (seccion === "listadoEmpresas") {
+              this.mostrarEmpresas = true;
+            } else if (seccion === "listadoContactos") {
+              this.mostrarContactos = true;
             }
+          },
+          registrarAlumno() {
+            this.listado.push({ ...this.nuevoAlumno });
+            this.nuevoAlumno = {
+              id: '',
+              nombre: '',
+              fechaNacimiento: '',
+              genero: '',
+              email: '',
+              telefono: '',
+              direccion: '',
+              centroEducativo: ''
+            };
+            alert("Alumno registrado");
           },
           actualizarAlumno(codigo) {
             alert(`Alumno ${codigo} actualizado`);
-          },
-          registrarAlumno() {
-            alert("Alumno registrado");
           },
           actualizarEmpresa(codigo) {
             alert(`Empresa ${codigo} actualizada`);
