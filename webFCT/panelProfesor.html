@@ -109,7 +109,7 @@
         <!-- Columna para mostrar la información de alumnos, empresas y contactos -->
         <div id="app" class="col-md-6">
           <div class="p-4 border shadow bg-white rounded">
-            <h4 @click="toggleSection('alumnos')">Tus alumnos</h4>
+            <h4 @click="ocultarCampo('alumnos')">Tus alumnos</h4>
             <div v-if="mostrarAlumnos">
               <div v-for="alumno in listado" :key="alumno.codigo">
                 <br>
@@ -237,7 +237,7 @@
           </div>
 
           <div class="p-4 border shadow bg-white rounded mt-3">
-            <h4 @click="toggleSection('empresas')">Empresas solicitantes</h4>
+            <h4 @click="ocultarCampo('empresas')">Empresas solicitantes</h4>
             <div v-if="mostrarEmpresas">
               <div v-for="empresa in listadoEmpresas" :key="empresa.codigo">
                 <br>
@@ -386,7 +386,7 @@
           </div>
 
           <div class="p-4 border shadow bg-white rounded mt-3">
-            <h4 @click="toggleSection('contactos')">Contacto Empresas</h4>
+            <h4 @click="ocultarCampo('contactos')">Contacto Empresas</h4>
             <div v-if="mostrarContactos">
               <div
                 v-for="contacto in listadoContactosEmpresa"
@@ -528,23 +528,23 @@
         },
         mounted() {
           axios
-            .get("datos.json") // Asegúrate de que el archivo se llama 'datos.json'
+            .get("datos.json")
             .then((response) => {
-              this.listado = response.data.alumnos; // Accede a la sección "alumnos"
-              this.listadoEmpresas = response.data.empresas; // Accede a la sección "empresas"
-              this.listadoContactosEmpresa = response.data.contactosEmpresas; // Accede a la sección "contactosEmpresas"
+              this.listado = response.data.alumnos; 
+              this.listadoEmpresas = response.data.empresas; 
+              this.listadoContactosEmpresa = response.data.contactosEmpresas;
             })
             .catch((error) => {
               console.error("Hubo un error al cargar los datos:", error);
             });
         },
         methods: {
-          toggleSection(section) {
-            if (section === "alumnos") {
+          ocultarCampo(seccion) {
+            if (seccion === "alumnos") {
               this.mostrarAlumnos = !this.mostrarAlumnos;
-            } else if (section === "empresas") {
+            } else if (seccion === "empresas") {
               this.mostrarEmpresas = !this.mostrarEmpresas;
-            } else if (section === "contactos") {
+            } else if (seccion === "contactos") {
               this.mostrarContactos = !this.mostrarContactos;
             }
           },

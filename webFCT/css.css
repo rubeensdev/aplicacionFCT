@@ -1,0 +1,22 @@
+.contenedorFormularios {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+   
+}
+
+.formulario {
+    width: 45%;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    box-shadow: 10px 1px 10px rgba(0, 0, 0, 0.3);
+    background-color: rgb(107, 107, 107) ;
+}
+
+html{
+ 
+    font-family: Arial, sans-serif;
+    background-color: #acabab;
+   
+}
