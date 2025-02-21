@@ -15,18 +15,17 @@
     <div id="app">
       <div class="container mt-4">
         <h1 class="mb-4 text-center">Panel de Admin</h1>
-        
+
         <div class="d-flex gap-5 mb-6">
-          
-          <button 
-            @click="ocultarCampo('registroProfesores')" 
+          <button
+            @click="ocultarCampo('registroProfesores')"
             class="btn btn-primary"
           >
             {{ mostrarRegistroProfesores ? 'Ocultar formulario' : 'Mostrar formulario de registro' }}
           </button>
 
-          <button 
-            @click="ocultarCampo('listadoProfesores')" 
+          <button
+            @click="ocultarCampo('listadoProfesores')"
             class="btn btn-primary"
           >
             {{ mostrarProfesor ? 'Ocultar listado' : 'Mostrar listado de profesores' }}
@@ -37,109 +36,67 @@
 
         <!-- Contenido que se muestra/oculta -->
         <div v-if="mostrarRegistroProfesores">
-         <h2>Formulario de registro</h2>
+          <h2>Formulario de registro</h2>
           <div class="contenedorFormularios mt-3">
             <div class="formulario p-4 border shadow bg-white rounded">
               <form @submit.prevent="registrar">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" />
+                <input type="text" id="nombre" v-model="nuevoProfesor.nombre" />
                 <br /><br />
-                <label for="id">ID:</label>
-                <input type="text"  id="id" />
+                <label for="codigo">ID:</label>
+                <input type="text" id="codigo" v-model="nuevoProfesor.codigo" />
                 <br /><br />
                 <label for="email">Email:</label>
-                <input type="text"  id="email" />
+                <input type="text" id="email" v-model="nuevoProfesor.email" />
                 <br /><br />
                 <label for="telefono">Teléfono:</label>
-                <input
-                  type="text"
-             
-                  id="telefono"
-                />
+                <input type="text" id="telefono" v-model="nuevoProfesor.telefono" />
                 <br /><br />
                 <label for="direccion">Dirección:</label>
-                <input
-                  type="text"
-              
-                  id="direccion"
-                />
+                <input type="text" id="direccion" v-model="nuevoProfesor.direccion" />
                 <br /><br />
                 <label for="fechaDeNacimiento">Fecha de Nacimiento:</label>
-                <input
-                  type="text"
-
-                  id="fechaDeNacimiento"
-                />
+                <input type="date" id="fechaDeNacimiento" v-model="nuevoProfesor.fechaDeNacimiento" />
                 <br /><br />
                 <label for="genero">Género:</label>
-                <input type="text"  id="genero" />
+                <input type="text" id="genero" v-model="nuevoProfesor.genero" />
                 <br /><br />
                 <label for="rol">Rol:</label>
-                <input type="text" id="rol" />
+                <input type="text" id="rol" v-model="nuevoProfesor.rol" />
                 <br /><br />
                 <label for="departamento">Departamento:</label>
-                <input
-                  type="text"
-                 
-                  id="departamento"
-                />
+                <input type="text" id="departamento" v-model="nuevoProfesor.departamento" />
                 <br /><br />
                 <label for="tipoDeContrato">Tipo de Contrato:</label>
-                <select
-                  id="tipoDeContrato"
-                >
+                <select id="tipoDeContrato" v-model="nuevoProfesor.tipoDeContrato">
                   <option value="Tiempo Completo">Tiempo completo</option>
                   <option value="Medio Tiempo">Medio tiempo</option>
                   <option value="Sustituto">Sustituto</option>
                 </select>
                 <br /><br />
                 <label for="fechaIngreso">Fecha de Ingreso:</label>
-                <input
-                  type="date"
-    
-                  id="fechaIngreso"
-                />
+                <input type="date" id="fechaIngreso" v-model="nuevoProfesor.fechaIngreso" />
                 <br /><br />
                 <label for="estadoProfesor">Estado del Profesor:</label>
-                <select
-
-                  id="estadoProfesor"
-                >
+                <select id="estadoProfesor" v-model="nuevoProfesor.estadoProfesor">
                   <option value="Activo">Activo</option>
                   <option value="En licencia">En licencia</option>
                   <option value="Inactivo">Inactivo</option>
                 </select>
                 <br /><br />
                 <label for="centro">Centro:</label>
-                <select id="centro">
+                <select id="centro" v-model="nuevoProfesor.centro">
                   <option value="IES 1">IES 1</option>
                   <option value="IES 2">IES 2</option>
                 </select>
                 <br /><br />
-                <label for="fotoPerfil">Foto de Perfil:</label>
-                <input
-                  type="file"
-           
-                  id="fotoPerfil"
-                  accept="image/*"
-                />
-                <br /><br />
                 <label for="notasAdicionales">Notas Adicionales:</label>
-                <textarea
-             
-                  id="notasAdicionales"
-                  rows="4"
-                  cols="50"
-                ></textarea>
+                <textarea id="notasAdicionales" rows="4" cols="50" v-model="nuevoProfesor.notasAdicionales"></textarea>
                 <br /><br />
                 <label for="contrasena">Contraseña:</label>
-                <input
-                  type="password"
-                 
-                  id="contrasena"
-                />
+                <input type="password" id="contrasena" v-model="nuevoProfesor.contrasena" />
                 <br /><br />
-                <button @click="registrar" type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-danger">
                   Registrar
                 </button>
               </form>
@@ -148,7 +105,7 @@
         </div>
 
         <div v-if="mostrarProfesor">
-          <h2>Listado de profesores</h2> 
+          <h2>Listado de profesores</h2>
           <div
             v-for="profesor in listadoProfesores"
             class="profesor-card mb-4 p-3 border rounded bg-white"
@@ -159,21 +116,28 @@
             <p><strong>Email:</strong> {{ profesor.email }}</p>
             <p><strong>Teléfono:</strong> {{ profesor.telefono }}</p>
             <p><strong>Dirección:</strong> {{ profesor.direccion }}</p>
-            <p><strong>Fecha de Nacimiento:</strong> {{ profesor.fechaDeNacimiento }}</p>
+            <p>
+              <strong>Fecha de Nacimiento:</strong> {{
+              profesor.fechaDeNacimiento }}
+            </p>
             <p><strong>Género:</strong> {{ profesor.genero }}</p>
             <p><strong>Rol:</strong> {{ profesor.rol }}</p>
-            <p><strong>Tipo de Contrato:</strong> {{ profesor.tipoDeContrato }}</p>
-            <p><strong>Fecha de Ingreso:</strong> {{ profesor.fechaIngreso }}</p>
+            <p>
+              <strong>Tipo de Contrato:</strong> {{ profesor.tipoDeContrato }}
+            </p>
+            <p>
+              <strong>Fecha de Ingreso:</strong> {{ profesor.fechaIngreso }}
+            </p>
             <p><strong>Estado:</strong> {{ profesor.estadoProfesor }}</p>
             <p><strong>Centro:</strong> {{ profesor.centro }}</p>
-            <p><strong>Notas Adicionales:</strong> {{ profesor.notasAdicionales }}</p>
+            <p>
+              <strong>Notas Adicionales:</strong> {{ profesor.notasAdicionales
+              }}
+            </p>
             <button @click="eliminar(profesor)" class="btn btn-danger">
               Eliminar
             </button>
           </div>
-        </div>
-        <div v-else class="alert alert-info">
-          No hay profesores registrados
         </div>
       </div>
     </div>
@@ -187,16 +151,33 @@
             listadoProfesores: [],
             mostrarRegistroProfesores: false,
             mostrarProfesor: false,
+            nuevoProfesor: {
+              nombre: '',
+              codigo: '',
+              email: '',
+              telefono: '',
+              direccion: '',
+              fechaDeNacimiento: '',
+              genero: '',
+              rol: '',
+              departamento: '',
+              tipoDeContrato: '',
+              fechaIngreso: '',
+              estadoProfesor: '',
+              centro: '',
+              notasAdicionales: '',
+              contrasena: ''
+            }
           };
         },
         mounted() {
           axios
-            .get("datos.json")
+            .get("http://localhost:3000/profesores")
             .then((response) => {
-              this.listadoProfesores = response.data.profesores;
+              this.listadoProfesores = response.data;
             })
             .catch((error) => {
-              console.error("Error al cargar datos:", error);
+              console.error("Error al cargar datos de profesores:", error);
             });
         },
         methods: {
@@ -211,12 +192,36 @@
             alert(`Profesor ${profesor.nombre} eliminado`);
           },
           registrar() {
-            alert(`Profesor ${this.nuevoProfesor.nombre} registrado`);
-          },
-        },
+            axios.post("http://localhost:3000/anadeProfesores", this.nuevoProfesor)
+              .then((response) => {
+                alert(`Profesor ${this.nuevoProfesor.nombre} registrado`);
+                this.listadoProfesores.push(this.nuevoProfesor);
+                this.nuevoProfesor = {
+                  nombre: '',
+                  codigo: '',
+                  email: '',
+                  telefono: '',
+                  direccion: '',
+                  fechaDeNacimiento: '',
+                  genero: '',
+                  rol: '',
+                  departamento: '',
+                  tipoDeContrato: '',
+                  fechaIngreso: '',
+                  estadoProfesor: '',
+                  centro: '',
+                  notasAdicionales: '',
+                  contrasena: ''
+                };
+              })
+              .catch((error) => {
+                console.error("Error al registrar profesor:", error);
+              });
+          }
+        }
       });
 
       app.mount("#app");
     </script>
-</body>
+  </body>
 </html>

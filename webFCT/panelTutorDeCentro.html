@@ -359,6 +359,29 @@
           mostrarAcciones: false,
           busqueda: "",
           busquedaEmpresa: "",
+          nuevoEmpresa: {
+  codigo: "",
+  nombre: "",
+  razonSocial: "",
+  tipo: "",
+  nif: "",
+  email: "",
+  telefono: "",
+  direccion: "",
+  ciudad: "",
+  codigoPostal: "",
+  pais: "",
+  fechaConstitucion: "",
+  sector: "",
+  numeroEmpleados: 0,
+  sitioWeb: "",
+  logo: "",
+  representanteLegal: "",
+  contacto: "",
+  fechaAlta: "",
+  notasAdicionales: "",
+  estadoEmpresa: ""
+}
         };
       },
       computed: {
@@ -397,17 +420,33 @@
         },
       },
       mounted() {
-        axios
-          .get("datos.json")
-          .then((response) => {
-            this.listado = response.data.alumnos;
-            this.listadoEmpresas = response.data.empresas;
-            this.listadoContactosEmpresa = response.data.contactosEmpresas;
-          })
-          .catch((error) => {
-            console.error("Error al cargar datos:", error);
-          });
-      },
+  axios
+    .get("http://localhost:3000/empresas")
+    .then((response) => {
+      this.listadoEmpresas = response.data;
+    })
+    .catch((error) => {
+      console.error("Error al cargar datos de empresas:", error);
+    });
+
+  axios
+    .get("http://localhost:3000/contactosempresas")
+    .then((response) => {
+      this.listadoContactosEmpresa = response.data;
+    })
+    .catch((error) => {
+      console.error("Error al cargar datos de contactoempresas:", error);
+    });
+
+  axios
+    .get("http://localhost:3000/alumnos")
+    .then((response) => {
+      this.listado = response.data;
+    })
+    .catch((error) => {
+      console.error("Error al cargar datos de alumnos:", error);
+    });
+},
       methods: {
         estadoClase(estado) {
           switch (estado) {
@@ -444,7 +483,29 @@
           );
         },
         registrarEmpresa() {
-          alert("Empresa registrada");
+          axios
+              .post("http://localhost:3000/anadeEmpresas", this.nuevoEmpresa)
+              .then((response) => {
+                alert(`Profesor ${this.nuevoEmpresa.nombre} registrado`);
+                this.listadoProfesores.push(this.nuevoEmpresa);
+                this.nuevoProfesor = {
+                  nombre: "",
+                  codigo: "",
+                  email: "",
+                  telefono: "",
+                  direccion: "",
+                  fechaDeNacimiento: "",
+                  genero: "",
+                  rol: "",
+                  departamento: "",
+                  tipoDeContrato: "",
+                  fechaIngreso: "",
+                  estadoProfesor: "",
+                  centro: "",
+                  notasAdicionales: "",
+                  contrasena: "",
+                };
+              })
         },
         registrarPersonaEmpresa() {
           alert("Persona de contacto registrada");

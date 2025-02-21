@@ -16,7 +16,6 @@
     </div>
 
     <div class="row">
-      <!-- Columna izquierda: Formularios -->
 
 
       <!-- Columna derecha: Listados -->
@@ -63,23 +62,33 @@
         },
         mounted() {
           axios
-            .get("datos.json") // Asegúrate de que el archivo se llama 'datos.json'
+            .get("http://localhost:3000/alumnos")
             .then((response) => {
-              this.listado = response.data.alumnos; // Accede a la sección "alumnos"
-              this.listadoEmpresas = response.data.empresas; // Accede a la sección "empresas"
-              this.listadoContactosEmpresa = response.data.contactosEmpresas; // Accede a la sección "contactosEmpresas"
+              this.listado = response.data;
             })
             .catch((error) => {
-              console.error("Hubo un error al cargar los datos:", error);
+              console.error("Hubo un error al cargar los datos de alumnos:", error);
+            });
+
+          axios
+            .get("http://localhost:3000/empresas")
+            .then((response) => {
+              this.listadoEmpresas = response.data;
+            })
+            .catch((error) => {
+              console.error("Hubo un error al cargar los datos de empresas:", error);
+            });
+
+          axios
+            .get("http://localhost:3000/contactosEmpresas")
+            .then((response) => {
+              this.listadoContactosEmpresa = response.data;
+            })
+            .catch((error) => {
+              console.error("Hubo un error al cargar los datos de contactos de empresas:", error);
             });
         },
         methods: {
-          actualizarAlumno() {
-            alert("Alumno actualizado");
-          },
-          registrarAlumno() {
-            alert("Alumno registrado");
-          },
           actualizarEstadoConvenio() {
            alert(`Estado del convenio actualizado`);
           },
