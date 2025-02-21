@@ -145,23 +145,17 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Nombre</th>
                   <th>Email</th>
                   <th>Teléfono</th>
-                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="alumno in listado" :key="alumno.id">
-                  <td>{{ alumno.id }}</td>
                   <td>{{ alumno.nombre }}</td>
                   <td>{{ alumno.email }}</td>
                   <td>{{ alumno.telefono }}</td>
                   <td>
-                    <button class="btn btn-warning btn-sm" @click="actualizarAlumno(alumno.id)">
-                      Actualizar
-                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -181,7 +175,6 @@
                   <th>Teléfono</th>
                   <th>Estado</th>
                   <th>Observaciones</th>
-                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -201,9 +194,6 @@
                     <textarea class="form-control" rows="2" v-model="empresa.observaciones"></textarea>
                   </td>
                   <td>
-                    <button class="btn btn-warning btn-sm" @click="actualizarEmpresa(empresa.codigo)">
-                      Actualizar
-                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -221,7 +211,6 @@
                   <th>Nombre</th>
                   <th>Email</th>
                   <th>Teléfono</th>
-                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -230,9 +219,6 @@
                   <td>{{ contacto.email }}</td>
                   <td>{{ contacto.telefono }}</td>
                   <td>
-                    <button class="btn btn-warning btn-sm" @click="actualizarContacto(contacto.empresaCodigo)">
-                      Actualizar
-                    </button>
                   </td>
                 </tr>
               </tbody>

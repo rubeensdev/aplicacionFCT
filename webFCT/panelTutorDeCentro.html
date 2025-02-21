@@ -1,766 +1,494 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Panel de Tutor de Centro</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-light">
-    <div id="app" data-v-app="">
-      <div class="container mt-4">
-        <h1 class="mb-4 text-center">Panel de Tutor de Centro</h1>
-        <div class="d-flex gap-3 mb-4 justify-content-center">
-          <button
-            class="btn btn-primary"
-            @click="ocultarCampo('registroEmpresas')"
-          >
-            Mostrar registro de empresas
-          </button>
-          <button
-            class="btn btn-primary"
-            @click="ocultarCampo('registroContactos')"
-          >
-            Mostrar registro de contactos
-          </button>
-          <button
-            class="btn btn-primary"
-            @click="ocultarCampo('listadoAlumnos')"
-          >
-            Mostrar listado de alumnos
-          </button>
-          <button
-            class="btn btn-primary"
-            @click="ocultarCampo('modificarAlumnos')"
-          >
-            Modificar alumnos
-          </button>
-          <button
-            class="btn btn-primary"
-            @click="ocultarCampo('listadoEmpresas')"
-          >
-            Mostrar listado de empresas
-          </button>
-          <button
-            class="btn btn-primary"
-            @click="ocultarCampo('modificarEmpresas')"
-          >
-            Modificar empresas
-          </button>
-          <button class="btn btn-primary" @click="ocultarCampo('acciones')">
-            Mostrar acciones
-          </button>
-          <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <!-- Registro de Empresas -->
-            <div class="card mb-4" v-if="mostrarRegistroEmpresas">
-              <div class="card-header text-black">
-                <h3>Registro de Empresas</h3>
-              </div>
-              <div class="card-body">
-                <form @submit.prevent="registrarEmpresa">
-                  <div class="mb-3">
-                    <label for="idEmpresa" class="form-label"
-                      >ID de la Empresa</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="idEmpresa"
-                      placeholder="EMP123456"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="nombreEmpresa" class="form-label"
-                      >Nombre de la Empresa</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nombreEmpresa"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="razonSocial" class="form-label"
-                      >Razón Social</label
-                    >
-                    <input type="text" class="form-control" id="razonSocial" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="tipoEmpresa" class="form-label"
-                      >Tipo de Empresa</label
-                    >
-                    <select class="form-select" id="tipoEmpresa">
-                      <option value="">Seleccione un tipo</option>
-                      <option value="SA">Sociedad Anónima</option>
-                      <option value="SL">Sociedad Limitada</option>
-                      <option value="Autonomo">Autónomo</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="email" class="form-label"
-                      >Correo Electrónico</label
-                    >
-                    <input type="email" class="form-control" id="email" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" id="telefono" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <textarea
-                      class="form-control"
-                      id="direccion"
-                      rows="2"
-                    ></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label for="ciudad" class="form-label">Ciudad</label>
-                    <input type="text" class="form-control" id="ciudad" />
-                  </div>
-                  <button type="submit" class="btn btn-success">
-                    Registrar Empresa
-                  </button>
-                </form>
-              </div>
-            </div>
 
-            <!-- Registro de Persona de Contacto -->
-            <div class="card mb-4" v-if="mostrarRegistroContactos">
-              <div class="card-header text-black">
-                <h3>Registro de Persona de Contacto</h3>
-              </div>
-              <div class="card-body">
-                <form @submit.prevent="registrarPersonaEmpresa">
-                  <div class="mb-3">
-                    <label for="idContacto" class="form-label"
-                      >ID de Persona de Contacto</label
-                    >
-                    <input type="text" class="form-control" id="idContacto" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="nombreCompleto" class="form-label"
-                      >Nombre Completo</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="nombreCompleto"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="cargo" class="form-label">Cargo o Puesto</label>
-                    <input type="text" class="form-control" id="cargo" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="emailContacto" class="form-label"
-                      >Correo Electrónico</label
-                    >
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="emailContacto"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label for="telefonoContacto" class="form-label"
-                      >Teléfono</label
-                    >
-                    <input
-                      type="tel"
-                      class="form-control"
-                      id="telefonoContacto"
-                    />
-                  </div>
-                  <button type="submit" class="btn btn-success">
-                    Registrar Contacto
-                  </button>
-                </form>
-              </div>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel de Tutor de Centro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
 
-            <!-- Modificar Alumnos -->
-            <div class="card mb-4" v-if="mostrarModificarEmpresas">
-              <div class="card-header text-black">
-                <h3>Modificar Empresas</h3>
-              </div>
-              <div class="card-body p-4">
-                <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
-                  <br /><br />
-                  <h6>{{ empresa.nombre }}</h6>
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.nombre"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.razonSocial"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.tipo"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.nif"
-                  />
-                  <input
-                    type="email"
-                    class="form-control mb-2"
-                    v-model="empresa.email"
-                  />
-                  <input
-                    type="tel"
-                    class="form-control mb-2"
-                    v-model="empresa.telefono"
-                  />
-                  <textarea
-                    class="form-control mb-2"
-                    rows="2"
-                    v-model="empresa.direccion"
-                  ></textarea>
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.ciudad"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.codigoPostal"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.pais"
-                  />
-                  <input
-                    type="date"
-                    class="form-control mb-2"
-                    v-model="empresa.fechaConstitucion"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.sector"
-                  />
-                  <input
-                    type="number"
-                    class="form-control mb-2"
-                    v-model="empresa.numeroEmpleados"
-                  />
-                  <input
-                    type="url"
-                    class="form-control mb-2"
-                    v-model="empresa.sitioWeb"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.logo"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.representanteLegal"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.estadoEmpresa"
-                  />
-                  <input
-                    type="date"
-                    class="form-control mb-2"
-                    v-model="empresa.fechaAlta"
-                  />
-                  <textarea
-                    class="form-control mb-2"
-                    rows="2"
-                    v-model="empresa.notasAdicionales"
-                  ></textarea>
-                  <button
-                    class="btn btn-warning btn-sm float-end mt-2"
-                    @click="actualizarEmpresa(empresa.codigo)"
-                  >
-                    Actualizar
-                  </button>
+<body class="bg-light">
+  <div id="app" data-v-app="">
+    <div class="container mt-4">
+      <h1 class="mb-4 text-center">Panel de Tutor de Centro</h1>
+      <div class="d-flex gap-3 mb-4 justify-content-center">
+        <button class="btn btn-primary" @click="ocultarCampo('registroEmpresas')">
+          {{ mostrarRegistroEmpresas ? 'Ocultar Registro Empresas' : 'Mostrar Registro Empresas' }}
+        </button>
+        <button class="btn btn-primary" @click="ocultarCampo('registroContactos')">
+          {{ mostrarRegistroContactos ? 'Ocultar Registro Contactos' : 'Mostrar Registro Contactos' }}
+        </button>
+        <button class="btn btn-primary" @click="ocultarCampo('listadoAlumnos')">
+          {{ mostrarListadoAlumnos ? 'Ocultar Listado Alumno' : 'Mostrar Listado Alumno' }}
+        </button>
+        <button class="btn btn-primary" @click="ocultarCampo('modificarAlumnos')">
+          {{ mostrarModificarAlumnos ? 'Ocultar Modificar Alumno' : 'Mostrar Modificar Alumno' }}
+        </button>
+        <button class="btn btn-primary" @click="ocultarCampo('listadoEmpresas')">
+          {{ mostrarListadoEmpresas ? 'Ocultar Listado Empresas' : 'Mostrar Listado Empresas' }}
+        </button>
+        <button class="btn btn-primary" @click="ocultarCampo('modificarEmpresas')">
+          {{ mostrarModificarEmpresas ? 'Ocultar Modificar Empresas' : 'Mostrar Modificar Empresas' }}
+        </button>
+        <button class="btn btn-primary" @click="ocultarCampo('acciones')">
+          {{ mostrarAcciones ? 'Ocultar Acciones' : 'Mostrar Acciones' }}
+        </button>
+        <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Registro de Empresas -->
+          <div class="card mb-4" v-if="mostrarRegistroEmpresas">
+            <div class="card-header text-black">
+              <h3>Registro de Empresas</h3>
+            </div>
+            <div class="card-body">
+              <form @submit.prevent="registrarEmpresa">
+                <div class="mb-3">
+                  <label for="idEmpresa" class="form-label">ID de la Empresa</label>
+                  <input type="text" class="form-control" id="idEmpresa" placeholder="EMP123456" />
                 </div>
-              </div>
-            </div>
-
-            <!-- Modificar Empresas -->
-            <div class="card mb-4" v-if="mostrarModificarEmpresas">
-              <div class="card-header text-black">
-                <h3>Modificar Empresas</h3>
-              </div>
-              <div class="card-body p-4">
-                <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
-                  <br /><br />
-                  <h6>{{ empresa.nombre }}</h6>
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.nombre"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.razonSocial"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.tipoEmpresa"
-                  />
-                  <input
-                    type="email"
-                    class="form-control mb-2"
-                    v-model="empresa.email"
-                  />
-                  <input
-                    type="tel"
-                    class="form-control mb-2"
-                    v-model="empresa.telefono"
-                  />
-                  <textarea
-                    class="form-control mb-2"
-                    rows="2"
-                    v-model="empresa.direccion"
-                  ></textarea>
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="empresa.ciudad"
-                  />
-                  <button
-                    class="btn btn-warning btn-sm float-end mt-2"
-                    @click="actualizarEmpresa(empresa.codigo)"
-                  >
-                    Actualizar
-                  </button>
+                <div class="mb-3">
+                  <label for="nombreEmpresa" class="form-label">Nombre de la Empresa</label>
+                  <input type="text" class="form-control" id="nombreEmpresa" />
                 </div>
-              </div>
-            </div>
-
-            <!-- Listado de Alumnos -->
-            <div class="card mb-4" v-if="mostrarListadoAlumnos">
-              <div class="card-header text-black">
-                <h3>Listado de Alumnos</h3>
-              </div>
-              <div class="card-body">
-                <input
-                  type="text"
-                  class="form-control mb-3"
-                  v-model="busqueda"
-                  placeholder="Buscar alumno..."
-                />
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Clase</th>
-                      <th>Email</th>
-                      <th>Teléfono</th>
-                      <th>Estado de Prácticas</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="alumno in alumnosFiltrados" :key="alumno.codigo">
-                      <td>{{ alumno.nombre }}</td>
-                      <td>{{ alumno.clase }}</td>
-                      <td>{{ alumno.email }}</td>
-                      <td>{{ alumno.telefono }}</td>
-                      <td>{{ alumno.estado_practicas }}</td>
-                      <td :class="estadoClase(alumno.estado_practicas)">
-                        {{ alumno.estado_practicas }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Acciones -->
-            <div class="card mb-4" v-if="mostrarAcciones">
-              <div class="card-header text-black"><h3>Acciones</h3></div>
-              <div class="card-body p-4">
-                <h3>Programar tutoria</h3>
-                <form @submit.prevent="progamarTutoria">
-                  <div class="mb-3">
-                    <label for="selectClase" class="form-label"
-                      >Seleccionar Clase</label
-                    >
-                    <select class="form-select" id="selectClase">
-                      <option value="1º DAW">1º DAW</option>
-                      <option value="2º DAW">2º DAW</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="fechaPrograma" class="form-label"
-                      >Fecha de la tutoria</label
-                    >
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="fechaPrograma"
-                    />
-                  </div>
-                  <button type="submit" class="btn btn-success">
-                    Programar tutoria
-                  </button>
-                </form>
-                <br /><br />
-                <h3>Realizar convenio</h3>
-                <button
-                  class="btn btn-success mt-3"
-                  @click="redirigirRealizarConvenio"
-                >
-                  Realizar convenio
-                </button>
-                <br /><br />
-                <h3>Ir a la firma de la relacion del alumno</h3>
-                <button
-                  class="btn btn-success mt-3"
-                  @click="redirigirFirmarRelacion"
-                >
-                  Firmar relación del alumno
-                </button>
-              </div>
-            </div>
-            <!-- Modificar Alumnos -->
-            <div class="card mb-4" v-if="mostrarModificarAlumnos">
-              <div class="card-header text-black">
-                <h3>Modificar Alumnos</h3>
-              </div>
-              <div class="card-body p-4">
-                <h5>
-                  Asignar todos los alumnos a PENDIENTE DE ASIGNACION DE
-                  PRACTICAS
-                </h5>
-                <label for="cursoSeleccionado" class="form-label"
-                  >Seleccionar Curso:</label
-                >
-                <select class="form-select mb-3" v-model="cursoSeleccionado">
-                  <option
-                    v-for="curso in cursosUnicos"
-                    :key="curso"
-                    :value="curso"
-                  >
-                    {{ curso }}
-                  </option>
-                </select>
-                <button
-                  class="btn btn-primary mb-3"
-                  @click="asignarTodosAlumnos"
-                >
-                  Asignar
-                </button>
-                <br />
-                <h5>Modificar Alumno</h5>
-                <div v-for="alumno in alumnosFiltrados" :key="alumno.codigo">
-                  <br /><br />
-                  <h6>{{ alumno.nombre }}</h6>
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.nombre"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.clase"
-                  />
-                  <input
-                    type="date"
-                    class="form-control mb-2"
-                    v-model="alumno.fechaNacimiento"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.genero"
-                  />
-                  <input
-                    type="email"
-                    class="form-control mb-2"
-                    v-model="alumno.email"
-                  />
-                  <input
-                    type="tel"
-                    class="form-control mb-2"
-                    v-model="alumno.telefono"
-                  />
-                  <textarea
-                    class="form-control mb-2"
-                    rows="2"
-                    v-model="alumno.direccion"
-                  ></textarea>
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.centroEducativo"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.tutor"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.estadoAlumno"
-                  />
-                  <input
-                    type="date"
-                    class="form-control mb-2"
-                    v-model="alumno.fechaInscripcion"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.fotoPerfil"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    v-model="alumno.notasAcademicas"
-                  />
-                  <textarea
-                    class="form-control mb-2"
-                    rows="2"
-                    v-model="alumno.observaciones"
-                  ></textarea>
-                  <select
-                    class="form-select mt-2"
-                    v-model="alumno.estado_practicas"
-                  >
-                    <option value="NO REALIZA PRACTICAS">
-                      NO REALIZA PRACTICAS
-                    </option>
-                    <option value="PENDIENTE ASIGNACION DE PRACTICAS">
-                      PENDIENTE ASIGNACION DE PRACTICAS
-                    </option>
-                    <option value="ASIGNADO A EMPRESA">
-                      ASIGNADO A EMPRESA
-                    </option>
-                    <option value="FINALIZADAS">FINALIZADAS</option>
+                <div class="mb-3">
+                  <label for="razonSocial" class="form-label">Razón Social</label>
+                  <input type="text" class="form-control" id="razonSocial" />
+                </div>
+                <div class="mb-3">
+                  <label for="tipoEmpresa" class="form-label">Tipo de Empresa</label>
+                  <select class="form-select" id="tipoEmpresa">
+                    <option value="">Seleccione un tipo</option>
+                    <option value="SA">Sociedad Anónima</option>
+                    <option value="SL">Sociedad Limitada</option>
+                    <option value="Autonomo">Autónomo</option>
                   </select>
-                  <button
-                    class="btn btn-warning btn-sm float-end mt-2"
-                    @click="actualizarAlumno(alumno.codigo)"
-                  >
-                    Actualizar
-                  </button>
                 </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" />
+                </div>
+                <div class="mb-3">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefono" />
+                </div>
+                <div class="mb-3">
+                  <label for="direccion" class="form-label">Dirección</label>
+                  <textarea class="form-control" id="direccion" rows="2"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="ciudad" class="form-label">Ciudad</label>
+                  <input type="text" class="form-control" id="ciudad" />
+                </div>
+                <button type="submit" class="btn btn-success">
+                  Registrar Empresa
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Registro de Persona de Contacto -->
+          <div class="card mb-4" v-if="mostrarRegistroContactos">
+            <div class="card-header text-black">
+              <h3>Registro de Persona de Contacto</h3>
+            </div>
+            <div class="card-body">
+              <form @submit.prevent="registrarPersonaEmpresa">
+                <div class="mb-3">
+                  <label for="idContacto" class="form-label">ID de Persona de Contacto</label>
+                  <input type="text" class="form-control" id="idContacto" />
+                </div>
+                <div class="mb-3">
+                  <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                  <input type="text" class="form-control" me="nombreCompleto" />
+                </div>
+                <div class="mb-3">
+                  <label for="cargo" class="form-label">Cargo o Puesto</label>
+                  <input type="text" class="form-control" id="cargo" />
+                </div>
+                <div class="mb-3">
+                  <label for="emailContacto" class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="emailContacto" />
+                </div>
+                <div class="mb-3">
+                  <label for="telefonoContacto" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefonoContacto" />
+                </div>
+                <button type="submit" class="btn btn-success">
+                  Registrar Contacto
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Modificar Alumnos -->
+          <div class="card mb-4" v-if="mostrarModificarEmpresas">
+            <div class="card-header text-black">
+              <h3>Modificar Empresas</h3>
+            </div>
+            <div class="card-body p-4">
+              <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
+                <br /><br />
+                <h6>{{ empresa.nombre }}</h6>
+                <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
+                <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
+                <input type="text" class="form-control mb-2" v-model="empresa.tipo" />
+                <input type="text" class="form-control mb-2" v-model="empresa.nif" />
+                <input type="email" class="form-control mb-2" v-model="empresa.email" />
+                <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
+                <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
+                <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
+                <input type="text" class="form-control mb-2" v-model="empresa.codigoPostal" />
+                <input type="text" class="form-control mb-2" v-model="empresa.pais" />
+                <input type="date" class="form-control mb-2" v-model="empresa.fechaConstitucion" />
+                <input type="text" class="form-control mb-2" v-model="empresa.sector" />
+                <input type="number" class="form-control mb-2" v-model="empresa.numeroEmpleados" />
+                <input type="url" class="form-control mb-2" v-model="empresa.sitioWeb" />
+                <input type="text" class="form-control mb-2" v-model="empresa.logo" />
+                <input type="text" class="form-control mb-2" v-model="empresa.representanteLegal" />
+                <input type="text" class="form-control mb-2" v-model="empresa.estadoEmpresa" />
+                <input type="date" class="form-control mb-2" v-model="empresa.fechaAlta" />
+                <textarea class="form-control mb-2" rows="2" v-model="empresa.notasAdicionales"></textarea>
+                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
+                  Actualizar
+                </button>
               </div>
             </div>
-            <!-- Listado de Empresas -->
-            <div class="card mb-4" v-if="mostrarListadoEmpresas">
-              <div class="card-header text-black">
-                <h3>Listado de Empresas</h3>
+          </div>
+
+          <!-- Modificar Empresas -->
+          <div class="card mb-4" v-if="mostrarModificarEmpresas">
+            <div class="card-header text-black">
+              <h3>Modificar Empresas</h3>
+            </div>
+            <div class="card-body p-4">
+              <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
+                <br /><br />
+                <h6>{{ empresa.nombre }}</h6>
+                <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
+                <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
+                <input type="text" class="form-control mb-2" v-model="empresa.tipoEmpresa" />
+                <input type="email" class="form-control mb-2" v-model="empresa.email" />
+                <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
+                <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
+                <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
+                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
+                  Actualizar
+                </button>
               </div>
-              <div class="card-body">
-                <input
-                  type="text"
-                  class="form-control mb-3"
-                  v-model="busquedaEmpresa"
-                  placeholder="Buscar empresa..."
-                />
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Razón Social</th>
-                      <th>Email</th>
-                      <th>Teléfono</th>
-                      <th>Ciudad</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="empresa in empresasFiltradas"
-                      :key="empresa.codigo"
-                    >
-                      <td>{{ empresa.nombre }}</td>
-                      <td>{{ empresa.razonSocial }}</td>
-                      <td>{{ empresa.email }}</td>
-                      <td>{{ empresa.telefono }}</td>
-                      <td>{{ empresa.ciudad }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+            </div>
+          </div>
+
+          <!-- Listado de Alumnos -->
+          <div class="card mb-4" v-if="mostrarListadoAlumnos">
+            <div class="card-header text-black">
+              <h3>Listado de Alumnos</h3>
+            </div>
+            <div class="card-body">
+              <input type="text" class="form-control mb-3" v-model="busqueda" placeholder="Buscar alumno..." />
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Clase</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Estado de Prácticas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="alumno in alumnosFiltrados" :key="alumno.codigo">
+                    <td>{{ alumno.nombre }}</td>
+                    <td>{{ alumno.clase }}</td>
+                    <td>{{ alumno.email }}</td>
+                    <td>{{ alumno.telefono }}</td>
+                    <td :class="estadoClase(alumno.estado_practicas)">
+                      {{ alumno.estado_practicas }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Acciones -->
+          <div class="card mb-4" v-if="mostrarAcciones">
+            <div class="card-header text-black">
+              <h3>Acciones</h3>
+            </div>
+            <div class="card-body p-4">
+              <h3>Programar tutoria</h3>
+              <form @submit.prevent="progamarTutoria">
+                <div class="mb-3">
+                  <label for="selectClase" class="form-label">Seleccionar Clase</label>
+                  <select class="form-select" id="selectClase">
+                    <option value="1º DAW">1º DAW</option>
+                    <option value="2º DAW">2º DAW</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="fechaPrograma" class="form-label">Fecha de la tutoria</label>
+                  <input type="date" class="form-control" id="fechaPrograma" />
+                </div>
+                <button type="submit" class="btn btn-success">
+                  Programar tutoria
+                </button>
+              </form>
+              <br /><br />
+              <h3>Realizar convenio</h3>
+              <button class="btn btn-success mt-3" @click="redirigirRealizarConvenio">
+                Realizar convenio
+              </button>
+              <br /><br />
+              <h3>Ir a la firma de la relacion del alumno</h3>
+              <button class="btn btn-success mt-3" @click="redirigirFirmarRelacion">
+                Firmar relación del alumno
+              </button>
+            </div>
+          </div>
+          <!-- Modificar Alumnos -->
+          <div class="card mb-4" v-if="mostrarModificarAlumnos">
+            <div class="card-header text-black">
+              <h3>Modificar Alumnos</h3>
+            </div>
+            <div class="card-body p-4">
+              <h5>
+                Asignar todos los alumnos a PENDIENTE DE ASIGNACION DE
+                PRACTICAS
+              </h5>
+              <label for="cursoSeleccionado" class="form-label">Seleccionar Curso:</label>
+              <select class="form-select mb-3" v-model="cursoSeleccionado">
+                <option v-for="curso in cursosUnicos" :key="curso" :value="curso">
+                  {{ curso }}
+                </option>
+              </select>
+              <button class="btn btn-primary mb-3" @click="asignarTodosAlumnos">
+                Asignar
+              </button>
+              <br />
+              <h5>Modificar Alumno</h5>
+              <div v-for="alumno in alumnosFiltrados" :key="alumno.codigo">
+                <br /><br />
+                <h6>{{ alumno.nombre }}</h6>
+                <input type="text" class="form-control mb-2" v-model="alumno.nombre" />
+                <input type="text" class="form-control mb-2" v-model="alumno.clase" />
+                <input type="date" class="form-control mb-2" v-model="alumno.fechaNacimiento" />
+                <input type="text" class="form-control mb-2" v-model="alumno.genero" />
+                <input type="email" class="form-control mb-2" v-model="alumno.email" />
+                <input type="tel" class="form-control mb-2" v-model="alumno.telefono" />
+                <textarea class="form-control mb-2" rows="2" v-model="alumno.direccion"></textarea>
+                <input type="text" class="form-control mb-2" v-model="alumno.centroEducativo" />
+                <input type="text" class="form-control mb-2" v-model="alumno.tutor" />
+                <input type="text" class="form-control mb-2" v-model="alumno.estadoAlumno" />
+                <input type="date" class="form-control mb-2" v-model="alumno.fechaInscripcion" />
+                <input type="text" class="form-control mb-2" v-model="alumno.fotoPerfil" />
+                <input type="text" class="form-control mb-2" v-model="alumno.notasAcademicas" />
+                <textarea class="form-control mb-2" rows="2" v-model="alumno.observaciones"></textarea>
+                <select class="form-select mt-2" v-model="alumno.estado_practicas">
+                  <option value="NO REALIZA PRACTICAS">
+                    NO REALIZA PRACTICAS
+                  </option>
+                  <option value="PENDIENTE ASIGNACION DE PRACTICAS">
+                    PENDIENTE ASIGNACION DE PRACTICAS
+                  </option>
+                  <option value="ASIGNADO A EMPRESA">
+                    ASIGNADO A EMPRESA
+                  </option>
+                  <option value="FINALIZADAS">FINALIZADAS</option>
+                </select>
+                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarAlumno(alumno.codigo)">
+                  Actualizar
+                </button>
               </div>
+            </div>
+          </div>
+          <!-- Listado de Empresas -->
+          <div class="card mb-4" v-if="mostrarListadoEmpresas">
+            <div class="card-header text-black">
+              <h3>Listado de Empresas</h3>
+            </div>
+            <div class="card-body">
+              <input type="text" class="form-control mb-3" v-model="busquedaEmpresa" placeholder="Buscar empresa..." />
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Razón Social</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Ciudad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="empresa in empresasFiltradas" :key="empresa.codigo">
+                    <td>{{ empresa.nombre }}</td>
+                    <td>{{ empresa.razonSocial }}</td>
+                    <td>{{ empresa.email }}</td>
+                    <td>{{ empresa.telefono }}</td>
+                    <td>{{ empresa.ciudad }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-      const { createApp } = Vue;
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const { createApp } = Vue;
 
-      const app = createApp({
-        data() {
-          return {
-            listado: [],
-            listadoEmpresas: [],
-            listadoContactosEmpresa: [],
-            cursoSeleccionado: "",
-            mostrarRegistroEmpresas: false,
-            mostrarRegistroContactos: false,
-            mostrarListadoAlumnos: false,
-            mostrarModificarAlumnos: false,
-            mostrarListadoEmpresas: false,
-            mostrarModificarEmpresas: false,
-            mostrarAcciones: false,
-            busqueda: "",
-            busquedaEmpresa: "",
-          };
+    const app = createApp({
+      data() {
+        return {
+          listado: [],
+          listadoEmpresas: [],
+          listadoContactosEmpresa: [],
+          cursoSeleccionado: "",
+          mostrarRegistroEmpresas: false,
+          mostrarRegistroContactos: false,
+          mostrarListadoAlumnos: false,
+          mostrarModificarAlumnos: false,
+          mostrarListadoEmpresas: false,
+          mostrarModificarEmpresas: false,
+          mostrarAcciones: false,
+          busqueda: "",
+          busquedaEmpresa: "",
+        };
+      },
+      computed: {
+        cursosUnicos() {
+          return [...new Set(this.listado.map((alumno) => alumno.clase))];
         },
-        computed: {
-          cursosUnicos() {
-            return [...new Set(this.listado.map((alumno) => alumno.clase))];
-          },
-          alumnosFiltrados() {
-            let alumnos = this.listado;
+        alumnosFiltrados() {
+          let alumnos = this.listado;
 
-            if (this.cursoSeleccionado) {
-              alumnos = alumnos.filter(
-                (alumno) => alumno.clase === this.cursoSeleccionado
-              );
-            }
-
-            if (this.busqueda) {
-              const busquedaMinuscula = this.busqueda.toLowerCase();
-              alumnos = alumnos.filter(
-                (alumno) =>
-                  alumno.nombre.toLowerCase().includes(busquedaMinuscula) ||
-                  alumno.clase.toLowerCase().includes(busquedaMinuscula) ||
-                  alumno.email.toLowerCase().includes(busquedaMinuscula)
-              );
-            }
-
-            return alumnos;
-          },
-          empresasFiltradas() {
-            if (!this.busquedaEmpresa) {
-              return this.listadoEmpresas;
-            }
-
-            const busquedaMinuscula = this.busquedaEmpresa.toLowerCase();
-            return this.listadoEmpresas.filter(
-              (empresa) =>
-                empresa.nombre.toLowerCase().includes(busquedaMinuscula) ||
-                empresa.razonSocial.toLowerCase().includes(busquedaMinuscula) ||
-                empresa.email.toLowerCase().includes(busquedaMinuscula)
+          if (this.cursoSeleccionado) {
+            alumnos = alumnos.filter(
+              (alumno) => alumno.clase === this.cursoSeleccionado
             );
-          },
-        },
-        mounted() {
-          axios
-            .get("datos.json")
-            .then((response) => {
-              this.listado = response.data.alumnos;
-              this.listadoEmpresas = response.data.empresas;
-              this.listadoContactosEmpresa = response.data.contactosEmpresas;
-            })
-            .catch((error) => {
-              console.error("Error al cargar datos:", error);
-            });
-        },
-        methods: {
-          estadoClase(estado) {
-            switch (estado) {
-              case "NO REALIZA PRACTICAS":
-                return "bg-danger text-white";
-              case "PENDIENTE ASIGNACION DE PRACTICAS":
-                return "bg-warning text-dark";
-              case "ASIGNADO A EMPRESA":
-                return "bg-primary text-white";
-              case "FINALIZADAS":
-                return "bg-success text-white";
-              default:
-                return "";
-            }
-          },
-          actualizarAlumno(codigo) {
-            alert(`Alumno actualizado`);
-          },
-          actualizarEmpresa(codigo) {
-            alert(`Empresa actualizada`);
-          },
-          asignarTodosAlumnos() {
-            if (!this.cursoSeleccionado) {
-              alert("Selecciona un curso");
-              return;
-            }
-            this.listado.forEach((alumno) => {
-              if (alumno.clase === this.cursoSeleccionado) {
-                alumno.estado_practicas = "PENDIENTE ASIGNACION DE PRACTICAS";
-              }
-            });
-            alert(
-              `Todos los alumnos de ${this.cursoSeleccionado} fueron asignados`
+          }
+
+          if (this.busqueda) {
+            const busquedaMinuscula = this.busqueda.toLowerCase();
+            alumnos = alumnos.filter(
+              (alumno) =>
+                alumno.nombre.toLowerCase().includes(busquedaMinuscula)
             );
-          },
-          registrarEmpresa() {
-            alert("Empresa registrada");
-          },
-          registrarPersonaEmpresa() {
-            alert("Persona de contacto registrada");
-          },
-          progamarTutoria() {
-            alert("Tutoria programada");
-          },
-          redirigirRealizarConvenio() {
-            window.location.href = "realizarConvenio.html";
-          },
-          redirigirFirmarRelacion() {
-            window.location.href = "firmarRelacion.html";
-          },
-          ocultarCampo(seccion) {
-            this.mostrarRegistroEmpresas = false;
-            this.mostrarRegistroContactos = false;
-            this.mostrarListadoAlumnos = false;
-            this.mostrarModificarAlumnos = false;
-            this.mostrarListadoEmpresas = false;
-            this.mostrarModificarEmpresas = false;
-            this.mostrarAcciones = false;
+          }
 
-            if (seccion === "registroEmpresas") {
-              this.mostrarRegistroEmpresas = true;
-            } else if (seccion === "registroContactos") {
-              this.mostrarRegistroContactos = true;
-            } else if (seccion === "listadoAlumnos") {
-              this.mostrarListadoAlumnos = true;
-            } else if (seccion === "modificarAlumnos") {
-              this.mostrarModificarAlumnos = true;
-            } else if (seccion === "listadoEmpresas") {
-              this.mostrarListadoEmpresas = true;
-            } else if (seccion === "modificarEmpresas") {
-              this.mostrarModificarEmpresas = true;
-            } else if (seccion === "acciones") {
-              this.mostrarAcciones = true;
-            }
-          },
+          return alumnos;
         },
-      });
+        empresasFiltradas() {
+          if (!this.busquedaEmpresa) {
+            return this.listadoEmpresas;
+          }
 
-      app.mount("#app");
-    </script>
-  </body>
+          const busquedaMinuscula = this.busquedaEmpresa.toLowerCase();
+          return this.listadoEmpresas.filter(
+            (empresa) =>
+              empresa.nombre.toLowerCase().includes(busquedaMinuscula)
+          );
+        },
+      },
+      mounted() {
+        axios
+          .get("datos.json")
+          .then((response) => {
+            this.listado = response.data.alumnos;
+            this.listadoEmpresas = response.data.empresas;
+            this.listadoContactosEmpresa = response.data.contactosEmpresas;
+          })
+          .catch((error) => {
+            console.error("Error al cargar datos:", error);
+          });
+      },
+      methods: {
+        estadoClase(estado) {
+          switch (estado) {
+            case "NO REALIZA PRACTICAS":
+              return "bg-danger text-white";
+            case "PENDIENTE ASIGNACION DE PRACTICAS":
+              return "bg-warning text-dark";
+            case "ASIGNADO A EMPRESA":
+              return "bg-primary text-white";
+            case "FINALIZADAS":
+              return "bg-success text-white";
+            default:
+              return "";
+          }
+        },
+        actualizarAlumno(codigo) {
+          alert(`Alumno actualizado`);
+        },
+        actualizarEmpresa(codigo) {
+          alert(`Empresa actualizada`);
+        },
+        asignarTodosAlumnos() {
+          if (!this.cursoSeleccionado) {
+            alert("Selecciona un curso");
+            return;
+          }
+          this.listado.forEach((alumno) => {
+            if (alumno.clase === this.cursoSeleccionado) {
+              alumno.estado_practicas = "PENDIENTE ASIGNACION DE PRACTICAS";
+            }
+          });
+          alert(
+            `Todos los alumnos de ${this.cursoSeleccionado} fueron asignados`
+          );
+        },
+        registrarEmpresa() {
+          alert("Empresa registrada");
+        },
+        registrarPersonaEmpresa() {
+          alert("Persona de contacto registrada");
+        },
+        progamarTutoria() {
+          alert("Tutoria programada");
+        },
+        redirigirRealizarConvenio() {
+          window.location.href = "realizarConvenio.html";
+        },
+        redirigirFirmarRelacion() {
+          window.location.href = "firmarRelacion.html";
+        },
+        ocultarCampo(seccion) {
+          this.mostrarRegistroEmpresas = false;
+
+          this.mostrarRegistroContactos = false;
+          this.mostrarListadoAlumnos = false;
+          this.mostrarModificarAlumnos = false;
+          this.mostrarListadoEmpresas = false;
+          this.mostrarModificarEmpresas = false;
+          this.mostrarAcciones = false;
+
+          if (seccion === "registroEmpresas") {
+            this.mostrarRegistroEmpresas = true;
+          } else if (seccion === "registroContactos") {
+            this.mostrarRegistroContactos = true;
+          } else if (seccion === "listadoAlumnos") {
+            this.mostrarListadoAlumnos = true;
+          } else if (seccion === "modificarAlumnos") {
+            this.mostrarModificarAlumnos = true;
+          } else if (seccion === "listadoEmpresas") {
+            this.mostrarListadoEmpresas = true;
+          } else if (seccion === "modificarEmpresas") {
+            this.mostrarModificarEmpresas = true;
+          } else if (seccion === "acciones") {
+            this.mostrarAcciones = true;
+          }
+        },
+      },
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+
 </html>

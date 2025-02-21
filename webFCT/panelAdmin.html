@@ -16,8 +16,7 @@
       <div class="container mt-4">
         <h1 class="mb-4 text-center">Panel de Admin</h1>
         
-        <div class="d-flex gap-3 mb-4">
-          <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
+        <div class="d-flex gap-5 mb-6">
           
           <button 
             @click="ocultarCampo('registroProfesores')" 
@@ -32,6 +31,8 @@
           >
             {{ mostrarProfesor ? 'Ocultar listado' : 'Mostrar listado de profesores' }}
           </button>
+
+          <a href="index.html" class="btn btn-danger">Cerrar sesión</a>
         </div>
 
         <!-- Contenido que se muestra/oculta -->
