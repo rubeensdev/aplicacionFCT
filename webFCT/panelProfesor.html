@@ -175,6 +175,7 @@
                   <th>Teléfono</th>
                   <th>Estado</th>
                   <th>Observaciones</th>
+                  <th>Contacto</th>
                 </tr>
               </thead>
               <tbody>
@@ -182,18 +183,21 @@
                   <td>{{ empresa.nombre }}</td>
                   <td>{{ empresa.email }}</td>
                   <td>{{ empresa.telefono }}</td>
-                  <td>
-                    <select class="form-select" v-model="empresa.estadoContacto">
-                      <option value="Sin contactar">Sin contactar</option>
-                      <option value="Contactado">Contactado</option>
-                      <option value="Admite alumnos">Admite alumnos</option>
-                      <option value="No admite alumnos">No admite alumnos</option>
+                    <td>
+                    <select :class="estadoClase(empresa.estadoEmpresa)" class="form-select" v-model="empresa.estadoEmpresa">
+                      <option :class="estadoClase(empresa.estadoEmpresa)" :value="empresa.estadoEmpresa">{{ empresa.estadoEmpresa }}</option>
+                      <option v-if="empresa.estadoEmpresa !== 'Sin contactar'" :class="estadoClase('Sin contactar')" value="Sin contactar">Sin contactar</option>
+                      <option v-if="empresa.estadoEmpresa !== 'Contactado'" :class="estadoClase('Contactado')" value="Contactado">Contactado</option>
+                      <option v-if="empresa.estadoEmpresa !== 'Admite alumnos'" :class="estadoClase('Admite alumnos')" value="Admite alumnos">Admite alumnos</option>
+                      <option v-if="empresa.estadoEmpresa !== 'No admite alumnos'" :class="estadoClase('No admite alumnos')" value="No admite alumnos">No admite alumnos</option>
                     </select>
-                  </td>
+                    </td>
                   <td>
                     <textarea class="form-control" rows="2" v-model="empresa.observaciones"></textarea>
                   </td>
                   <td>
+                   {{ empresa.contacto }}
+                    <button class="btn btn-info btn-sm">Contactar</button>
                   </td>
                 </tr>
               </tbody>
@@ -240,17 +244,7 @@
             mostrarRegistroAlumnos: false,
             mostrarAlumnos: false,
             mostrarEmpresas: false,
-            mostrarContactos: false,
-            nuevoAlumno: {
-              id: '',
-              nombre: '',
-              fechaNacimiento: '',
-              genero: '',
-              email: '',
-              telefono: '',
-              direccion: '',
-              centroEducativo: ''
-            }
+            mostrarContactos: false
           };
         },
         mounted() {
@@ -266,6 +260,20 @@
             });
         },
         methods: {
+          estadoClase(estado) {
+            switch (estado) {
+              case "No admite alumnos":
+                return "bg-danger text-white";
+              case "Contactado":
+                return "bg-warning text-dark";
+              case "Admite alumnos":
+                return "bg-primary text-white";
+              case "Sin contactar":
+                return "bg-success text-white";
+              default:
+                return "";
+            }
+          },
           ocultarCampo(seccion) {
             this.mostrarRegistroAlumnos = false;
             this.mostrarAlumnos = false;

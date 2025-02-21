@@ -56,9 +56,10 @@
       "sitioWeb": "www.empresaabc.com",
       "logo": "logo1.png",
       "representanteLegal": "Juan Pérez",
-      "estadoEmpresa": "Activa",
+      "contacto": "Carlos López",
       "fechaAlta": "2023-01-15",
-      "notasAdicionales": "Empresa enfocada en la innovación tecnológica, con presencia internacional"
+      "notasAdicionales": "Empresa enfocada en la innovación tecnológica, con presencia internacional",
+      "estadoEmpresa": "Admite alumnos"
     },
     {
       "codigo": "A2",
@@ -78,9 +79,10 @@
       "sitioWeb": "www.empxyz.com",
       "logo": "logo2.png",
       "representanteLegal": "Lucía Gómez",
-      "estadoEmpresa": "Activa",
+      "contacto": "Lucía Gómez",
       "fechaAlta": "2023-02-20",
-      "notasAdicionales": "Empresa líder en el sector salud, con múltiples premios"
+      "notasAdicionales": "Empresa líder en el sector salud, con múltiples premios",
+      "estadoEmpresa": "Contactado"
     }
   ],
   "contactosEmpresas": [
@@ -102,6 +104,7 @@
       "observaciones": "Encargado de procesos de reclutamiento y selección",
       "estadoContacto": "Activo",
       "notasAdicionales": "Personal técnico"
+      
     },
     {
       "empresaCodigo": "A2",
