@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(cors()); // Habilita CORS para todas las rutas
+app.use(cors());
 
 // Configura la conexión a la base de datos
 const conexion = mysql.createConnection({
@@ -49,15 +49,15 @@ app.get("/empresas", (req, res) => {
   });
 });
 
-// Endpoint para obtener los datos de la tabla contactoempresas
+// Endpoint para obtener los datos de la tabla contactosempresas
 app.get("/contactosempresas", (req, res) => {
   const query = `SELECT * FROM contactosempresas`;
   conexion.query(query, (err, results) => {
     if (err) {
-      console.error("Error al obtener los datos de la tabla contactoempresas:", err);
+      console.error("Error al obtener los datos de la tabla contactosempresas:", err);
       return res
         .status(500)
-        .send("Error al obtener los datos de la tabla contactoempresas");
+        .send("Error al obtener los datos de la tabla contactosempresas");
     }
     res.json(results);
   });
@@ -78,10 +78,11 @@ app.get("/alumnos", (req, res) => {
 
 // POST endpoint para insertar datos en la tabla profesores
 app.post('/anadeProfesores', (req, res) => {
-  const { codigo, nombre, departamento, telefono, email, direccion, fechaDeNacimiento, genero, rol, tipoDeContrato, fechaIngreso, estadoProfesor, centro, fotoPerfil, notasAdicionales, contrasena } = req.body;
-  const query = `INSERT INTO profesores (codigo, nombre, departamento, telefono, email, direccion, fechaDeNacimiento, genero, rol, tipoDeContrato, fechaIngreso, estadoProfesor, centro, fotoPerfil, notasAdicionales, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-  conexion.query(query, [codigo, nombre, departamento, telefono, email, direccion, fechaDeNacimiento, genero, rol, tipoDeContrato, fechaIngreso, estadoProfesor, centro, fotoPerfil, notasAdicionales, contrasena], (err, result) => {
+  const { nombre, departamento, telefono, email, direccion, fechaDeNacimiento, genero, rol, tipoDeContrato, fechaIngreso, estadoProfesor, centro, fotoPerfil, notasAdicionales, contrasena } = req.body;
+  const query = `INSERT INTO profesores (nombre, departamento, telefono, email, direccion, fechaDeNacimiento, genero, rol, tipoDeContrato, fechaIngreso, estadoProfesor, centro, fotoPerfil, notasAdicionales, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  conexion.query(query, [nombre, departamento, telefono, email, direccion, fechaDeNacimiento, genero, rol, tipoDeContrato, fechaIngreso, estadoProfesor, centro, fotoPerfil, notasAdicionales, contrasena], (err, result) => {
     if (err) {
+      console.error("Error al insertar en la tabla profesores:", err);
       return res.status(500).json({ error: "Error al insertar en la tabla profesores" });
     }
     res.json({
@@ -92,14 +93,13 @@ app.post('/anadeProfesores', (req, res) => {
 });
 
 // POST endpoint para insertar datos en la tabla empresas
-app.post("/anadeEmpresas", (req, res) => {
-  const { nombre, direccion, telefono } = req.body;
-  const query = `INSERT INTO empresas (nombre, direccion, telefono) VALUES (?, ?, ?)`;
-  conexion.query(query, [nombre, direccion, telefono], (err, result) => {
+app.post('/anadeEmpresas', (req, res) => {
+  const { nombre, razonSocial, tipo, nif, email, telefono, direccion, ciudad, codigoPostal, pais, fechaConstitucion, sector, numeroEmpleados, sitioWeb, logo, representanteLegal, contacto, fechaAlta, notasAdicionales, estadoEmpresa } = req.body;
+  const query = `INSERT INTO empresas (nombre, razonSocial, tipo, nif, email, telefono, direccion, ciudad, codigoPostal, pais, fechaConstitucion, sector, numeroEmpleados, sitioWeb, logo, representanteLegal, contacto, fechaAlta, notasAdicionales, estadoEmpresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  conexion.query(query, [nombre, razonSocial, tipo, nif, email, telefono, direccion, ciudad, codigoPostal, pais, fechaConstitucion, sector, numeroEmpleados, sitioWeb, logo, representanteLegal, contacto, fechaAlta, notasAdicionales, estadoEmpresa], (err, result) => {
     if (err) {
-      return res
-        .status(500)
-        .json({ error: "Error al insertar en la tabla empresas" });
+      console.error("Error al insertar en la tabla empresas:", err);
+      return res.status(500).json({ error: "Error al insertar en la tabla empresas" });
     }
     res.json({
       message: "Empresa insertada correctamente",
@@ -108,39 +108,33 @@ app.post("/anadeEmpresas", (req, res) => {
   });
 });
 
-// POST endpoint para insertar datos en la tabla contactoempresas
-app.post("/anadeContactoEmpresas/", (req, res) => {
-  const { nombre, empresa_id, email, telefono } = req.body;
-  const query = `INSERT INTO contactoempresas (nombre, empresa_id, email, telefono) VALUES (?, ?, ?, ?)`;
-  conexion.query(
-    query,
-    [nombre, empresa_id, email, telefono],
-    (err, result) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ error: "Error al insertar en la tabla contactoempresas" });
-      }
-      res.json({
-        message: "Contacto de empresa insertado correctamente",
-        id: result.insertId,
-      });
+// POST endpoint para insertar datos en la tabla contactosempresas
+app.post('/anadeContacto', (req, res) => {
+  const { empresaCodigo, nombreEmpresa, nombreContacto, cargo, departamento, email, telefono, extension, direccionOficina, horarioTrabajo, nivelAcceso, relacionEmpresa, fechaIngreso, fotoPerfil, observaciones, estadoContacto, notasAdicionales } = req.body;
+  const query = `INSERT INTO contactosempresas (empresaCodigo, nombreEmpresa, nombreContacto, cargo, departamento, email, telefono, extension, direccionOficina, horarioTrabajo, nivelAcceso, relacionEmpresa, fechaIngreso, fotoPerfil, observaciones, estadoContacto, notasAdicionales) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  conexion.query(query, [empresaCodigo, nombreEmpresa, nombreContacto, cargo, departamento, email, telefono, extension, direccionOficina, horarioTrabajo, nivelAcceso, relacionEmpresa, fechaIngreso, fotoPerfil, observaciones, estadoContacto, notasAdicionales], (err, result) => {
+    if (err) {
+      console.error("Error al insertar en la tabla contactosempresas:", err);
+      return res.status(500).json({ error: "Error al insertar en la tabla contactosempresas" });
     }
-  );
+    res.json({
+      message: "Contacto insertado correctamente",
+      id: result.insertId,
+    });
+  });
 });
 
 // POST endpoint para insertar datos en la tabla alumnos
-app.post("/anadeAlumnos/", (req, res) => {
-  const { nombre, edad, curso } = req.body;
-  const query = `INSERT INTO alumnos (nombre, edad, curso) VALUES (?, ?, ?)`;
-  conexion.query(query, [nombre, edad, curso], (err, result) => {
+app.post('/anadeAlumno', (req, res) => {
+  const { nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones } = req.body;
+  const query = `INSERT INTO alumnos (id, nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  conexion.query(query, [ nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones], (err, result) => {
     if (err) {
-      return res
-        .status(500)
-        .json({ error: "Error al insertar en la tabla alumnos" });
+      console.error('Error al insertar en la tabla alumnos:', err);
+      return res.status(500).json({ error: 'Error al insertar en la tabla alumnos' });
     }
     res.json({
-      message: "Alumno insertado correctamente",
+      message: 'Alumno insertado correctamente',
       id: result.insertId,
     });
   });

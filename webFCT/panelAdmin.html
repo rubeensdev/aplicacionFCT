@@ -43,9 +43,6 @@
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" v-model="nuevoProfesor.nombre" />
                 <br /><br />
-                <label for="codigo">ID:</label>
-                <input type="text" id="codigo" v-model="nuevoProfesor.codigo" />
-                <br /><br />
                 <label for="email">Email:</label>
                 <input type="text" id="email" v-model="nuevoProfesor.email" />
                 <br /><br />
@@ -153,7 +150,6 @@
             mostrarProfesor: false,
             nuevoProfesor: {
               nombre: '',
-              codigo: '',
               email: '',
               telefono: '',
               direccion: '',
@@ -213,9 +209,11 @@
                   notasAdicionales: '',
                   contrasena: ''
                 };
+                alert("Profesor registrado");
               })
               .catch((error) => {
                 console.error("Error al registrar profesor:", error);
+                alert("Error al registrar profesor");
               });
           }
         }

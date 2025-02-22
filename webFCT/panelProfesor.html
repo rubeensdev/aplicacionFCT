@@ -49,14 +49,6 @@
         <div v-if="mostrarRegistroAlumnos">
           <h3 class="mt-3">Registro de Alumnos</h3>
           <div class="p-4 border shadow bg-white rounded">
-            <label for="idAlumno" class="form-label">ID del Alumno:</label>
-            <input
-              type="text"
-              name="idAlumno"
-              id="idAlumno"
-              class="form-control"
-              v-model="nuevoAlumno.id"
-            />
 
             <label for="nombreCompleto" class="form-label mt-2"
               >Nombre Completo:</label
@@ -242,14 +234,21 @@
             listadoEmpresas: [],
             listadoContactosEmpresa: [],
             nuevoAlumno: {
-              id: '',
               nombre: '',
+              clase: '',
+              estado_practicas: '',
               fechaNacimiento: '',
               genero: '',
               email: '',
               telefono: '',
               direccion: '',
-              centroEducativo: ''
+              centroEducativo: '',
+              tutor:'',
+              estadoAlumno: 'Activo',
+              fechaInscripcion: new Date().toISOString().substr(0, 10),
+              fotoPerfil: '',
+              notasAcademicas: '',
+              observaciones: ''
             },
             mostrarRegistroAlumnos: false,
             mostrarAlumnos: false,
@@ -317,8 +316,33 @@
             }
           },
           registrarAlumno() {
-            alert("Alumno registrado");
-          },
+    axios
+      .post("http://localhost:3000/anadeAlumno", this.nuevoAlumno)
+      .then((response) => {
+        alert(`Alumno ${this.nuevoAlumno.nombre} registrado`);
+        this.listado.push(this.nuevoAlumno);
+        this.nuevoAlumno = {
+          nombre: '',
+          clase: '',
+          estado_practicas: '',
+          fechaNacimiento: '',
+          genero: '',
+          email: '',
+          telefono: '',
+          direccion: '',
+          centroEducativo: '',
+          tutor: '',
+          estadoAlumno: 'Activo',
+          fechaInscripcion: new Date().toISOString().substr(0, 10),
+          fotoPerfil: '',
+          notasAcademicas: '',
+          observaciones: ''
+        };
+      })
+      .catch((error) => {
+        console.error("Error al registrar el alumno:", error);
+      });
+    },
           actualizarAlumno(codigo) {
             alert(`Alumno ${codigo} actualizado`);
           },

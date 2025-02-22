@@ -43,23 +43,19 @@
             <div class="card-header text-black">
               <h3>Registro de Empresas</h3>
             </div>
-            <div class="card-body">
+                        <div class="card-body">
               <form @submit.prevent="registrarEmpresa">
                 <div class="mb-3">
-                  <label for="idEmpresa" class="form-label">ID de la Empresa</label>
-                  <input type="text" class="form-control" id="idEmpresa" placeholder="EMP123456" />
-                </div>
-                <div class="mb-3">
                   <label for="nombreEmpresa" class="form-label">Nombre de la Empresa</label>
-                  <input type="text" class="form-control" id="nombreEmpresa" />
+                  <input type="text" class="form-control" id="nombreEmpresa" v-model="nuevoEmpresa.nombre" />
                 </div>
                 <div class="mb-3">
                   <label for="razonSocial" class="form-label">Razón Social</label>
-                  <input type="text" class="form-control" id="razonSocial" />
+                  <input type="text" class="form-control" id="razonSocial" v-model="nuevoEmpresa.razonSocial" />
                 </div>
                 <div class="mb-3">
                   <label for="tipoEmpresa" class="form-label">Tipo de Empresa</label>
-                  <select class="form-select" id="tipoEmpresa">
+                  <select class="form-select" id="tipoEmpresa" v-model="nuevoEmpresa.tipo">
                     <option value="">Seleccione un tipo</option>
                     <option value="SA">Sociedad Anónima</option>
                     <option value="SL">Sociedad Limitada</option>
@@ -67,20 +63,72 @@
                   </select>
                 </div>
                 <div class="mb-3">
+                  <label for="nif" class="form-label">NIF</label>
+                  <input type="text" class="form-control" id="nif" v-model="nuevoEmpresa.nif" />
+                </div>
+                <div class="mb-3">
                   <label for="email" class="form-label">Correo Electrónico</label>
-                  <input type="email" class="form-control" id="email" />
+                  <input type="email" class="form-control" id="email" v-model="nuevoEmpresa.email" />
                 </div>
                 <div class="mb-3">
                   <label for="telefono" class="form-label">Teléfono</label>
-                  <input type="tel" class="form-control" id="telefono" />
+                  <input type="tel" class="form-control" id="telefono" v-model="nuevoEmpresa.telefono" />
                 </div>
                 <div class="mb-3">
                   <label for="direccion" class="form-label">Dirección</label>
-                  <textarea class="form-control" id="direccion" rows="2"></textarea>
+                  <textarea class="form-control" id="direccion" rows="2" v-model="nuevoEmpresa.direccion"></textarea>
                 </div>
                 <div class="mb-3">
                   <label for="ciudad" class="form-label">Ciudad</label>
-                  <input type="text" class="form-control" id="ciudad" />
+                  <input type="text" class="form-control" id="ciudad" v-model="nuevoEmpresa.ciudad" />
+                </div>
+                <div class="mb-3">
+                  <label for="codigoPostal" class="form-label">Código Postal</label>
+                  <input type="text" class="form-control" id="codigoPostal" v-model="nuevoEmpresa.codigoPostal" />
+                </div>
+                <div class="mb-3">
+                  <label for="pais" class="form-label">País</label>
+                  <input type="text" class="form-control" id="pais" v-model="nuevoEmpresa.pais" />
+                </div>
+                <div class="mb-3">
+                  <label for="fechaConstitucion" class="form-label">Fecha de Constitución</label>
+                  <input type="date" class="form-control" id="fechaConstitucion" v-model="nuevoEmpresa.fechaConstitucion" />
+                </div>
+                <div class="mb-3">
+                  <label for="sector" class="form-label">Sector</label>
+                  <input type="text" class="form-control" id="sector" v-model="nuevoEmpresa.sector" />
+                </div>
+                <div class="mb-3">
+                  <label for="numeroEmpleados" class="form-label">Número de Empleados</label>
+                  <input type="number" class="form-control" id="numeroEmpleados" v-model="nuevoEmpresa.numeroEmpleados" />
+                </div>
+                <div class="mb-3">
+                  <label for="sitioWeb" class="form-label">Sitio Web</label>
+                  <input type="url" class="form-control" id="sitioWeb" v-model="nuevoEmpresa.sitioWeb" />
+                </div>
+                <div class="mb-3">
+                  <label for="logo" class="form-label">Logo</label>
+                  <input type="text" class="form-control" id="logo" v-model="nuevoEmpresa.logo" />
+                </div>
+                <div class="mb-3">
+                  <label for="representanteLegal" class="form-label">Representante Legal</label>
+                  <input type="text" class="form-control" id="representanteLegal" v-model="nuevoEmpresa.representanteLegal" />
+                </div>
+                <div class="mb-3">
+                  <label for="contacto" class="form-label">Contacto</label>
+                  <input type="text" class="form-control" id="contacto" v-model="nuevoEmpresa.contacto" />
+                </div>
+                <div class="mb-3">
+                  <label for="fechaAlta" class="form-label">Fecha de Alta</label>
+                  <input type="date" class="form-control" id="fechaAlta" v-model="nuevoEmpresa.fechaAlta" />
+                </div>
+                <div class="mb-3">
+                  <label for="notasAdicionales" class="form-label">Notas Adicionales</label>
+                  <textarea class="form-control" id="notasAdicionales" rows="2" v-model="nuevoEmpresa.notasAdicionales"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="estadoEmpresa" class="form-label">Estado de la Empresa</label>
+                  <input type="text" class="form-control" id="estadoEmpresa" v-model="nuevoEmpresa.estadoEmpresa" />
                 </div>
                 <button type="submit" class="btn btn-success">
                   Registrar Empresa
@@ -97,28 +145,74 @@
             <div class="card-body">
               <form @submit.prevent="registrarPersonaEmpresa">
                 <div class="mb-3">
-                  <label for="idContacto" class="form-label">ID de Persona de Contacto</label>
-                  <input type="text" class="form-control" id="idContacto" />
+                  <label for="empresaCodigo" class="form-label">Código de Empresa</label>
+                  <input type="text" class="form-control" id="empresaCodigo" v-model="nuevoContacto.empresaCodigo" />
                 </div>
                 <div class="mb-3">
-                  <label for="nombreCompleto" class="form-label">Nombre Completo</label>
-                  <input type="text" class="form-control" me="nombreCompleto" />
+                  <label for="nombreEmpresa" class="form-label">Nombre de la Empresa</label>
+                  <input type="text" class="form-control" id="nombreEmpresa" v-model="nuevoContacto.nombreEmpresa" />
+                </div>
+                <div class="mb-3">
+                  <label for="nombreContacto" class="form-label">Nombre Completo del Contacto</label>
+                  <input type="text" class="form-control" id="nombreContacto" v-model="nuevoContacto.nombreContacto" />
                 </div>
                 <div class="mb-3">
                   <label for="cargo" class="form-label">Cargo o Puesto</label>
-                  <input type="text" class="form-control" id="cargo" />
+                  <input type="text" class="form-control" id="cargo" v-model="nuevoContacto.cargo" />
                 </div>
                 <div class="mb-3">
-                  <label for="emailContacto" class="form-label">Correo Electrónico</label>
-                  <input type="email" class="form-control" id="emailContacto" />
+                  <label for="departamento" class="form-label">Departamento</label>
+                  <input type="text" class="form-control" id="departamento" v-model="nuevoContacto.departamento" />
                 </div>
                 <div class="mb-3">
-                  <label for="telefonoContacto" class="form-label">Teléfono</label>
-                  <input type="tel" class="form-control" id="telefonoContacto" />
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" v-model="nuevoContacto.email" />
                 </div>
-                <button type="submit" class="btn btn-success">
-                  Registrar Contacto
-                </button>
+                <div class="mb-3">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefono" v-model="nuevoContacto.telefono" />
+                </div>
+                <div class="mb-3">
+                  <label for="extension" class="form-label">Extensión</label>
+                  <input type="text" class="form-control" id="extension" v-model="nuevoContacto.extension" />
+                </div>
+                <div class="mb-3">
+                  <label for="direccionOficina" class="form-label">Dirección de la Oficina</label>
+                  <textarea class="form-control" id="direccionOficina" rows="2" v-model="nuevoContacto.direccionOficina"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="horarioTrabajo" class="form-label">Horario de Trabajo</label>
+                  <input type="text" class="form-control" id="horarioTrabajo" v-model="nuevoContacto.horarioTrabajo" />
+                </div>
+                <div class="mb-3">
+                  <label for="nivelAcceso" class="form-label">Nivel de Acceso</label>
+                  <input type="text" class="form-control" id="nivelAcceso" v-model="nuevoContacto.nivelAcceso" />
+                </div>
+                <div class="mb-3">
+                  <label for="relacionEmpresa" class="form-label">Relación con la Empresa</label>
+                  <input type="text" class="form-control" id="relacionEmpresa" v-model="nuevoContacto.relacionEmpresa" />
+                </div>
+                <div class="mb-3">
+                  <label for="fechaIngreso" class="form-label">Fecha de Ingreso</label>
+                  <input type="date" class="form-control" id="fechaIngreso" v-model="nuevoContacto.fechaIngreso" />
+                </div>
+                <div class="mb-3">
+                  <label for="fotoPerfil" class="form-label">Foto de Perfil</label>
+                  <input type="text" class="form-control" id="fotoPerfil" v-model="nuevoContacto.fotoPerfil" />
+                </div>
+                <div class="mb-3">
+                  <label for="observaciones" class="form-label">Observaciones</label>
+                  <textarea class="form-control" id="observaciones" rows="2" v-model="nuevoContacto.observaciones"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="estadoContacto" class="form-label">Estado del Contacto</label>
+                  <input type="text" class="form-control" id="estadoContacto" v-model="nuevoContacto.estadoContacto" />
+                </div>
+                <div class="mb-3">
+                  <label for="notasAdicionales" class="form-label">Notas Adicionales</label>
+                  <textarea class="form-control" id="notasAdicionales" rows="2" v-model="nuevoContacto.notasAdicionales"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Registrar Contacto</button>
               </form>
             </div>
           </div>
@@ -130,30 +224,30 @@
             </div>
             <div class="card-body p-4">
               <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
-                <br /><br />
-                <h6>{{ empresa.nombre }}</h6>
-                <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
-                <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
-                <input type="text" class="form-control mb-2" v-model="empresa.tipo" />
-                <input type="text" class="form-control mb-2" v-model="empresa.nif" />
-                <input type="email" class="form-control mb-2" v-model="empresa.email" />
-                <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
-                <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
-                <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
-                <input type="text" class="form-control mb-2" v-model="empresa.codigoPostal" />
-                <input type="text" class="form-control mb-2" v-model="empresa.pais" />
-                <input type="date" class="form-control mb-2" v-model="empresa.fechaConstitucion" />
-                <input type="text" class="form-control mb-2" v-model="empresa.sector" />
-                <input type="number" class="form-control mb-2" v-model="empresa.numeroEmpleados" />
-                <input type="url" class="form-control mb-2" v-model="empresa.sitioWeb" />
-                <input type="text" class="form-control mb-2" v-model="empresa.logo" />
-                <input type="text" class="form-control mb-2" v-model="empresa.representanteLegal" />
-                <input type="text" class="form-control mb-2" v-model="empresa.estadoEmpresa" />
-                <input type="date" class="form-control mb-2" v-model="empresa.fechaAlta" />
-                <textarea class="form-control mb-2" rows="2" v-model="empresa.notasAdicionales"></textarea>
-                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
-                  Actualizar
-                </button>
+          <br /><br />
+          <h6>{{ empresa.nombre }}</h6>
+          <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
+          <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
+          <input type="text" class="form-control mb-2" v-model="empresa.tipo" />
+          <input type="text" class="form-control mb-2" v-model="empresa.nif" />
+          <input type="email" class="form-control mb-2" v-model="empresa.email" />
+          <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
+          <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
+          <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
+          <input type="text" class="form-control mb-2" v-model="empresa.codigoPostal" />
+          <input type="text" class="form-control mb-2" v-model="empresa.pais" />
+          <input type="date" class="form-control mb-2" v-model="empresa.fechaConstitucion" />
+          <input type="text" class="form-control mb-2" v-model="empresa.sector" />
+          <input type="number" class="form-control mb-2" v-model="empresa.numeroEmpleados" />
+          <input type="url" class="form-control mb-2" v-model="empresa.sitioWeb" />
+          <input type="text" class="form-control mb-2" v-model="empresa.logo" />
+          <input type="text" class="form-control mb-2" v-model="empresa.representanteLegal" />
+          <input type="text" class="form-control mb-2" v-model="empresa.estadoEmpresa" />
+          <input type="date" class="form-control mb-2" v-model="empresa.fechaAlta" />
+          <textarea class="form-control mb-2" rows="2" v-model="empresa.notasAdicionales"></textarea>
+          <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
+            Actualizar
+          </button>
               </div>
             </div>
           </div>
@@ -165,18 +259,18 @@
             </div>
             <div class="card-body p-4">
               <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
-                <br /><br />
-                <h6>{{ empresa.nombre }}</h6>
-                <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
-                <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
-                <input type="text" class="form-control mb-2" v-model="empresa.tipoEmpresa" />
-                <input type="email" class="form-control mb-2" v-model="empresa.email" />
-                <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
-                <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
-                <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
-                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
-                  Actualizar
-                </button>
+          <br /><br />
+          <h6>{{ empresa.nombre }}</h6>
+          <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
+          <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
+          <input type="text" class="form-control mb-2" v-model="empresa.tipoEmpresa" />
+          <input type="email" class="form-control mb-2" v-model="empresa.email" />
+          <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
+          <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
+          <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
+          <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
+            Actualizar
+          </button>
               </div>
             </div>
           </div>
@@ -189,26 +283,26 @@
             <div class="card-body">
               <input type="text" class="form-control mb-3" v-model="busqueda" placeholder="Buscar alumno..." />
               <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Clase</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Estado de Prácticas</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="alumno in alumnosFiltrados" :key="alumno.codigo">
-                    <td>{{ alumno.nombre }}</td>
-                    <td>{{ alumno.clase }}</td>
-                    <td>{{ alumno.email }}</td>
-                    <td>{{ alumno.telefono }}</td>
-                    <td :class="estadoClase(alumno.estado_practicas)">
-                      {{ alumno.estado_practicas }}
-                    </td>
-                  </tr>
-                </tbody>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Clase</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Estado de Prácticas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="alumno in alumnosFiltrados" :key="alumno.codigo">
+              <td>{{ alumno.nombre }}</td>
+              <td>{{ alumno.clase }}</td>
+              <td>{{ alumno.email }}</td>
+              <td>{{ alumno.telefono }}</td>
+              <td :class="estadoClase(alumno.estado_practicas)">
+                {{ alumno.estado_practicas }}
+              </td>
+            </tr>
+          </tbody>
               </table>
             </div>
           </div>
@@ -221,9 +315,9 @@
             <div class="card-body p-4">
               <h3>Programar tutoria</h3>
               <form @submit.prevent="progamarTutoria">
-                <div class="mb-3">
-                  <label for="selectClase" class="form-label">Seleccionar Clase</label>
-                  <select class="form-select" id="selectClase">
+          <div class="mb-3"></div>
+            <label for="selectClase" class="form-label">Seleccionar Clase</label>
+            <select class="form-select" id="selectClase">
                     <option value="1º DAW">1º DAW</option>
                     <option value="2º DAW">2º DAW</option>
                   </select>
@@ -360,7 +454,6 @@
           busqueda: "",
           busquedaEmpresa: "",
           nuevoEmpresa: {
-  codigo: "",
   nombre: "",
   razonSocial: "",
   tipo: "",
@@ -381,7 +474,26 @@
   fechaAlta: "",
   notasAdicionales: "",
   estadoEmpresa: ""
-}
+},
+nuevoContacto: {
+      empresaCodigo: "",
+      nombreEmpresa: "",
+      nombreContacto: "",
+      cargo: "",
+      departamento: "",
+      email: "",
+      telefono: "",
+      extension: "",
+      direccionOficina: "",
+      horarioTrabajo: "",
+      nivelAcceso: "",
+      relacionEmpresa: "",
+      fechaIngreso: "",
+      fotoPerfil: "",
+      observaciones: "",
+      estadoContacto: "",
+      notasAdicionales: ""
+    }
         };
       },
       computed: {
@@ -447,7 +559,7 @@
       console.error("Error al cargar datos de alumnos:", error);
     });
 },
-      methods: {
+          methods: {
         estadoClase(estado) {
           switch (estado) {
             case "NO REALIZA PRACTICAS":
@@ -478,37 +590,70 @@
               alumno.estado_practicas = "PENDIENTE ASIGNACION DE PRACTICAS";
             }
           });
-          alert(
-            `Todos los alumnos de ${this.cursoSeleccionado} fueron asignados`
-          );
+          alert(`Todos los alumnos de ${this.cursoSeleccionado} fueron asignados`);
         },
         registrarEmpresa() {
           axios
-              .post("http://localhost:3000/anadeEmpresas", this.nuevoEmpresa)
-              .then((response) => {
-                alert(`Profesor ${this.nuevoEmpresa.nombre} registrado`);
-                this.listadoProfesores.push(this.nuevoEmpresa);
-                this.nuevoProfesor = {
-                  nombre: "",
-                  codigo: "",
-                  email: "",
-                  telefono: "",
-                  direccion: "",
-                  fechaDeNacimiento: "",
-                  genero: "",
-                  rol: "",
-                  departamento: "",
-                  tipoDeContrato: "",
-                  fechaIngreso: "",
-                  estadoProfesor: "",
-                  centro: "",
-                  notasAdicionales: "",
-                  contrasena: "",
-                };
-              })
+            .post("http://localhost:3000/anadeEmpresas", this.nuevoEmpresa)
+            .then((response) => {
+              alert(`Empresa ${this.nuevoEmpresa.nombre} registrada`);
+              this.listadoEmpresas.push(this.nuevoEmpresa);
+              this.nuevoEmpresa = {
+                nombre: "",
+                razonSocial: "",
+                tipo: "",
+                nif: "",
+                email: "",
+                telefono: "",
+                direccion: "",
+                ciudad: "",
+                codigoPostal: "",
+                pais: "",
+                fechaConstitucion: "",
+                sector: "",
+                numeroEmpleados: 0,
+                sitioWeb: "",
+                logo: "",
+                representanteLegal: "",
+                contacto: "",
+                fechaAlta: "",
+                notasAdicionales: "",
+                estadoEmpresa: ""
+              };
+            })
+            .catch((error) => {
+              console.error("Error al registrar la empresa:", error);
+            });
         },
         registrarPersonaEmpresa() {
-          alert("Persona de contacto registrada");
+          axios
+            .post("http://localhost:3000/anadeContacto", this.nuevoContacto)
+            .then((response) => {
+              alert(`Contacto ${this.nuevoContacto.nombreContacto} registrado`);
+              this.listadoContactosEmpresa.push(this.nuevoContacto);
+              this.nuevoContacto = {
+                empresaCodigo: "",
+                nombreEmpresa: "",
+                nombreContacto: "",
+                cargo: "",
+                departamento: "",
+                email: "",
+                telefono: "",
+                extension: "",
+                direccionOficina: "",
+                horarioTrabajo: "",
+                nivelAcceso: "",
+                relacionEmpresa: "",
+                fechaIngreso: "",
+                fotoPerfil: "",
+                observaciones: "",
+                estadoContacto: "",
+                notasAdicionales: ""
+              };
+            })
+            .catch((error) => {
+              console.error("Error al registrar el contacto:", error);
+            });
         },
         progamarTutoria() {
           alert("Tutoria programada");
@@ -521,14 +666,13 @@
         },
         ocultarCampo(seccion) {
           this.mostrarRegistroEmpresas = false;
-
           this.mostrarRegistroContactos = false;
           this.mostrarListadoAlumnos = false;
           this.mostrarModificarAlumnos = false;
           this.mostrarListadoEmpresas = false;
           this.mostrarModificarEmpresas = false;
           this.mostrarAcciones = false;
-
+      
           if (seccion === "registroEmpresas") {
             this.mostrarRegistroEmpresas = true;
           } else if (seccion === "registroContactos") {
@@ -544,9 +688,8 @@
           } else if (seccion === "acciones") {
             this.mostrarAcciones = true;
           }
-        },
-      },
-    });
+        }
+      }});
 
     app.mount("#app");
   </script>
