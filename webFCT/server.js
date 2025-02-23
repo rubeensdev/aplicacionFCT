@@ -127,8 +127,8 @@ app.post('/anadeContacto', (req, res) => {
 // POST endpoint para insertar datos en la tabla alumnos
 app.post('/anadeAlumno', (req, res) => {
   const { nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones } = req.body;
-  const query = `INSERT INTO alumnos (id, nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-  conexion.query(query, [ nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones], (err, result) => {
+  const query = `INSERT INTO alumnos (nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  conexion.query(query, [nombre, clase, estado_practicas, fechaNacimiento, genero, email, telefono, direccion, centroEducativo, tutor, estadoAlumno, fechaInscripcion, fotoPerfil, notasAcademicas, observaciones], (err, result) => {
     if (err) {
       console.error('Error al insertar en la tabla alumnos:', err);
       return res.status(500).json({ error: 'Error al insertar en la tabla alumnos' });
@@ -136,6 +136,38 @@ app.post('/anadeAlumno', (req, res) => {
     res.json({
       message: 'Alumno insertado correctamente',
       id: result.insertId,
+    });
+  });
+});
+
+// PUT endpoint para actualizar datos en la tabla alumnos
+app.put('/alumnos/:codigo', (req, res) => {
+  const codigo = req.params.codigo;
+  const alumnoActualizado = req.body;
+  const query = `UPDATE alumnos SET ? WHERE codigo = ?`;
+  conexion.query(query, [alumnoActualizado, codigo], (err, result) => {
+    if (err) {
+      console.error('Error al actualizar en la tabla alumnos:', err);
+      return res.status(500).json({ error: 'Error al actualizar en la tabla alumnos' });
+    }
+    res.json({
+      message: 'Alumno actualizado correctamente',
+    });
+  });
+});
+
+// PUT endpoint para actualizar datos en la tabla empresas
+app.put('/empresas/:codigo', (req, res) => {
+  const codigo = req.params.codigo;
+  const empresaActualizada = req.body;
+  const query = `UPDATE empresas SET ? WHERE codigo = ?`;
+  conexion.query(query, [empresaActualizada, codigo], (err, result) => {
+    if (err) {
+      console.error('Error al actualizar en la tabla empresas:', err);
+      return res.status(500).json({ error: 'Error al actualizar en la tabla empresas' });
+    }
+    res.json({
+      message: 'Empresa actualizada correctamente',
     });
   });
 });

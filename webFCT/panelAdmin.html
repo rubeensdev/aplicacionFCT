@@ -35,64 +35,80 @@
         </div>
 
         <!-- Contenido que se muestra/oculta -->
+        <div class="d-flex justify-content-center mt-4">
+        </div>
         <div v-if="mostrarRegistroProfesores">
           <h2>Formulario de registro</h2>
           <div class="contenedorFormularios mt-3">
-            <div class="formulario p-4 border shadow bg-white rounded">
+            <div class="p-4 border shadow bg-white rounded">
               <form @submit.prevent="registrar">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" v-model="nuevoProfesor.nombre" />
-                <br /><br />
-                <label for="email">Email:</label>
-                <input type="text" id="email" v-model="nuevoProfesor.email" />
-                <br /><br />
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" v-model="nuevoProfesor.telefono" />
-                <br /><br />
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" v-model="nuevoProfesor.direccion" />
-                <br /><br />
-                <label for="fechaDeNacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fechaDeNacimiento" v-model="nuevoProfesor.fechaDeNacimiento" />
-                <br /><br />
-                <label for="genero">Género:</label>
-                <input type="text" id="genero" v-model="nuevoProfesor.genero" />
-                <br /><br />
-                <label for="rol">Rol:</label>
-                <input type="text" id="rol" v-model="nuevoProfesor.rol" />
-                <br /><br />
-                <label for="departamento">Departamento:</label>
-                <input type="text" id="departamento" v-model="nuevoProfesor.departamento" />
-                <br /><br />
-                <label for="tipoDeContrato">Tipo de Contrato:</label>
-                <select id="tipoDeContrato" v-model="nuevoProfesor.tipoDeContrato">
-                  <option value="Tiempo Completo">Tiempo completo</option>
-                  <option value="Medio Tiempo">Medio tiempo</option>
-                  <option value="Sustituto">Sustituto</option>
-                </select>
-                <br /><br />
-                <label for="fechaIngreso">Fecha de Ingreso:</label>
-                <input type="date" id="fechaIngreso" v-model="nuevoProfesor.fechaIngreso" />
-                <br /><br />
-                <label for="estadoProfesor">Estado del Profesor:</label>
-                <select id="estadoProfesor" v-model="nuevoProfesor.estadoProfesor">
-                  <option value="Activo">Activo</option>
-                  <option value="En licencia">En licencia</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-                <br /><br />
-                <label for="centro">Centro:</label>
-                <select id="centro" v-model="nuevoProfesor.centro">
-                  <option value="IES 1">IES 1</option>
-                  <option value="IES 2">IES 2</option>
-                </select>
-                <br /><br />
-                <label for="notasAdicionales">Notas Adicionales:</label>
-                <textarea id="notasAdicionales" rows="4" cols="50" v-model="nuevoProfesor.notasAdicionales"></textarea>
-                <br /><br />
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" v-model="nuevoProfesor.contrasena" />
-                <br /><br />
+                <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre:</label>
+                  <input type="text" id="nombre" v-model="nuevoProfesor.nombre" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email:</label>
+                  <input type="email" id="email" v-model="nuevoProfesor.email" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="telefono" class="form-label">Teléfono:</label>
+                  <input type="text" id="telefono" v-model="nuevoProfesor.telefono" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="direccion" class="form-label">Dirección:</label>
+                  <input type="text" id="direccion" v-model="nuevoProfesor.direccion" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="fechaDeNacimiento" class="form-label">Fecha de Nacimiento:</label>
+                  <input type="date" id="fechaDeNacimiento" v-model="nuevoProfesor.fechaDeNacimiento" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="genero" class="form-label">Género:</label>
+                  <input type="text" id="genero" v-model="nuevoProfesor.genero" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="rol" class="form-label">Rol:</label>
+                  <input type="text" id="rol" v-model="nuevoProfesor.rol" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="departamento" class="form-label">Departamento:</label>
+                  <input type="text" id="departamento" v-model="nuevoProfesor.departamento" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="tipoDeContrato" class="form-label">Tipo de Contrato:</label>
+                  <select id="tipoDeContrato" v-model="nuevoProfesor.tipoDeContrato" class="form-select">
+                    <option value="Tiempo Completo">Tiempo completo</option>
+                    <option value="Medio Tiempo">Medio tiempo</option>
+                    <option value="Sustituto">Sustituto</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="fechaIngreso" class="form-label">Fecha de Ingreso:</label>
+                  <input type="date" id="fechaIngreso" v-model="nuevoProfesor.fechaIngreso" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="estadoProfesor" class="form-label">Estado del Profesor:</label>
+                  <select id="estadoProfesor" v-model="nuevoProfesor.estadoProfesor" class="form-select">
+                    <option value="Activo">Activo</option>
+                    <option value="En licencia">En licencia</option>
+                    <option value="Inactivo">Inactivo</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="centro" class="form-label">Centro:</label>
+                  <select id="centro" v-model="nuevoProfesor.centro" class="form-select">
+                    <option value="IES 1">IES 1</option>
+                    <option value="IES 2">IES 2</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="notasAdicionales" class="form-label">Notas Adicionales:</label>
+                  <textarea id="notasAdicionales" rows="4" cols="50" v-model="nuevoProfesor.notasAdicionales" class="form-control"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="contrasena" class="form-label">Contraseña:</label>
+                  <input type="password" id="contrasena" v-model="nuevoProfesor.contrasena" class="form-control" />
+                </div>
                 <button type="submit" class="btn btn-danger">
                   Registrar
                 </button>
@@ -107,37 +123,33 @@
             v-for="profesor in listadoProfesores"
             class="profesor-card mb-4 p-3 border rounded bg-white"
           >
-            <h5>{{ profesor.nombre }}</h5>
-            <p><strong>ID:</strong> {{ profesor.codigo }}</p>
-            <p><strong>Departamento:</strong> {{ profesor.departamento }}</p>
-            <p><strong>Email:</strong> {{ profesor.email }}</p>
-            <p><strong>Teléfono:</strong> {{ profesor.telefono }}</p>
-            <p><strong>Dirección:</strong> {{ profesor.direccion }}</p>
-            <p>
-              <strong>Fecha de Nacimiento:</strong> {{
-              profesor.fechaDeNacimiento }}
-            </p>
-            <p><strong>Género:</strong> {{ profesor.genero }}</p>
-            <p><strong>Rol:</strong> {{ profesor.rol }}</p>
-            <p>
-              <strong>Tipo de Contrato:</strong> {{ profesor.tipoDeContrato }}
-            </p>
-            <p>
-              <strong>Fecha de Ingreso:</strong> {{ profesor.fechaIngreso }}
-            </p>
-            <p><strong>Estado:</strong> {{ profesor.estadoProfesor }}</p>
-            <p><strong>Centro:</strong> {{ profesor.centro }}</p>
-            <p>
-              <strong>Notas Adicionales:</strong> {{ profesor.notasAdicionales
-              }}
-            </p>
-            <button @click="eliminar(profesor)" class="btn btn-danger">
+            <div class="row">
+              <div class="col-md-6">
+          <h5>{{ profesor.nombre }}</h5>
+          <p><strong>ID:</strong> {{ profesor.codigo }}</p>
+          <p><strong>Departamento:</strong> {{ profesor.departamento }}</p>
+          <p><strong>Email:</strong> {{ profesor.email }}</p>
+          <p><strong>Teléfono:</strong> {{ profesor.telefono }}</p>
+              </div>
+              <div class="col-md-6">
+          <p><strong>Dirección:</strong> {{ profesor.direccion }}</p>
+          <p><strong>Fecha de Nacimiento:</strong> {{ profesor.fechaDeNacimiento }}</p>
+          <p><strong>Género:</strong> {{ profesor.genero }}</p>
+          <p><strong>Rol:</strong> {{ profesor.rol }}</p>
+          <p><strong>Tipo de Contrato:</strong> {{ profesor.tipoDeContrato }}</p>
+          <p><strong>Fecha de Ingreso:</strong> {{ profesor.fechaIngreso }}</p>
+          <p><strong>Estado:</strong> {{ profesor.estadoProfesor }}</p>
+          <p><strong>Centro:</strong> {{ profesor.centro }}</p>
+          <p><strong>Notas Adicionales:</strong> {{ profesor.notasAdicionales }}</p>
+              </div>
+            </div>
+            <button @click="eliminar(profesor)" class="btn btn-danger mt-3">
               Eliminar
             </button>
           </div>
         </div>
-      </div>
-    </div>
+            </div>
+          </div>
 
     <script>
       const { createApp } = Vue;
@@ -178,6 +190,9 @@
         },
         methods: {
           ocultarCampo(seccion) {
+            this.mostrarRegistroProfesores = false;
+            this.mostrarProfesor = false;
+
             if (seccion === "registroProfesores") {
               this.mostrarRegistroProfesores = !this.mostrarRegistroProfesores;
             } else if (seccion === "listadoProfesores") {
@@ -194,7 +209,6 @@
                 this.listadoProfesores.push(this.nuevoProfesor);
                 this.nuevoProfesor = {
                   nombre: '',
-                  codigo: '',
                   email: '',
                   telefono: '',
                   direccion: '',
@@ -209,11 +223,10 @@
                   notasAdicionales: '',
                   contrasena: ''
                 };
-                alert("Profesor registrado");
               })
               .catch((error) => {
                 console.error("Error al registrar profesor:", error);
-                alert("Error al registrar profesor");
+
               });
           }
         }

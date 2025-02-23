@@ -217,64 +217,38 @@
             </div>
           </div>
 
-          <!-- Modificar Empresas -->
+               <!-- Modificar Empresas -->
           <div class="card mb-4" v-if="mostrarModificarEmpresas">
             <div class="card-header text-black">
               <h3>Modificar Empresas</h3>
             </div>
             <div class="card-body p-4">
               <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
-          <br /><br />
-          <h6>{{ empresa.nombre }}</h6>
-          <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
-          <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
-          <input type="text" class="form-control mb-2" v-model="empresa.tipo" />
-          <input type="text" class="form-control mb-2" v-model="empresa.nif" />
-          <input type="email" class="form-control mb-2" v-model="empresa.email" />
-          <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
-          <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
-          <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
-          <input type="text" class="form-control mb-2" v-model="empresa.codigoPostal" />
-          <input type="text" class="form-control mb-2" v-model="empresa.pais" />
-          <input type="date" class="form-control mb-2" v-model="empresa.fechaConstitucion" />
-          <input type="text" class="form-control mb-2" v-model="empresa.sector" />
-          <input type="number" class="form-control mb-2" v-model="empresa.numeroEmpleados" />
-          <input type="url" class="form-control mb-2" v-model="empresa.sitioWeb" />
-          <input type="text" class="form-control mb-2" v-model="empresa.logo" />
-          <input type="text" class="form-control mb-2" v-model="empresa.representanteLegal" />
-          <input type="text" class="form-control mb-2" v-model="empresa.estadoEmpresa" />
-          <input type="date" class="form-control mb-2" v-model="empresa.fechaAlta" />
-          <textarea class="form-control mb-2" rows="2" v-model="empresa.notasAdicionales"></textarea>
-          <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
-            Actualizar
-          </button>
+                <br /><br />
+                <h6>{{ empresa.nombre }}</h6>
+                <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
+                <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
+                <input type="text" class="form-control mb-2" v-model="empresa.tipo" />
+                <input type="text" class="form-control mb-2" v-model="empresa.nif" />
+                <input type="email" class="form-control mb-2" v-model="empresa.email" />
+                <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
+                <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
+                <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
+                <input type="text" class="form-control mb-2" v-model="empresa.codigoPostal" />
+                <input type="text" class="form-control mb-2" v-model="empresa.pais" />
+                <input type="text" class="form-control mb-2" v-model="empresa.sector" />
+                <input type="number" class="form-control mb-2" v-model="empresa.numeroEmpleados" />
+                <input type="url" class="form-control mb-2" v-model="empresa.sitioWeb" />
+                <input type="text" class="form-control mb-2" v-model="empresa.logo" />
+                <input type="text" class="form-control mb-2" v-model="empresa.representanteLegal" />
+                <input type="text" class="form-control mb-2" v-model="empresa.estadoEmpresa" />
+                <textarea class="form-control mb-2" rows="2" v-model="empresa.notasAdicionales"></textarea>
+                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa)">
+                  Actualizar
+                </button>
               </div>
             </div>
           </div>
-
-          <!-- Modificar Empresas -->
-          <div class="card mb-4" v-if="mostrarModificarEmpresas">
-            <div class="card-header text-black">
-              <h3>Modificar Empresas</h3>
-            </div>
-            <div class="card-body p-4">
-              <div v-for="empresa in empresasFiltradas" :key="empresa.codigo">
-          <br /><br />
-          <h6>{{ empresa.nombre }}</h6>
-          <input type="text" class="form-control mb-2" v-model="empresa.nombre" />
-          <input type="text" class="form-control mb-2" v-model="empresa.razonSocial" />
-          <input type="text" class="form-control mb-2" v-model="empresa.tipoEmpresa" />
-          <input type="email" class="form-control mb-2" v-model="empresa.email" />
-          <input type="tel" class="form-control mb-2" v-model="empresa.telefono" />
-          <textarea class="form-control mb-2" rows="2" v-model="empresa.direccion"></textarea>
-          <input type="text" class="form-control mb-2" v-model="empresa.ciudad" />
-          <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarEmpresa(empresa.codigo)">
-            Actualizar
-          </button>
-              </div>
-            </div>
-          </div>
-
           <!-- Listado de Alumnos -->
           <div class="card mb-4" v-if="mostrarListadoAlumnos">
             <div class="card-header text-black">
@@ -307,41 +281,41 @@
             </div>
           </div>
 
-          <!-- Acciones -->
-          <div class="card mb-4" v-if="mostrarAcciones">
+            <!-- Acciones -->
+            <div class="card mb-4" v-if="mostrarAcciones">
             <div class="card-header text-black">
               <h3>Acciones</h3>
             </div>
             <div class="card-body p-4">
               <h3>Programar tutoria</h3>
               <form @submit.prevent="progamarTutoria">
-          <div class="mb-3"></div>
-            <label for="selectClase" class="form-label">Seleccionar Clase</label>
-            <select class="form-select" id="selectClase">
-                    <option value="1º DAW">1º DAW</option>
-                    <option value="2º DAW">2º DAW</option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="fechaPrograma" class="form-label">Fecha de la tutoria</label>
-                  <input type="date" class="form-control" id="fechaPrograma" />
-                </div>
-                <button type="submit" class="btn btn-success">
-                  Programar tutoria
-                </button>
+              <div class="mb-3">
+                <label for="selectClase" class="form-label">Seleccionar Clase</label>
+                <select class="form-select" id="selectClase">
+                <option value="1º DAW">1º DAW</option>
+                <option value="2º DAW">2º DAW</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="fechaPrograma" class="form-label">Fecha de la tutoria</label>
+                <input type="date" class="form-control" id="fechaPrograma" />
+              </div>
+              <button type="submit" class="btn btn-success">
+                Programar tutoria
+              </button>
               </form>
               <br /><br />
               <h3>Realizar convenio</h3>
               <button class="btn btn-success mt-3" @click="redirigirRealizarConvenio">
-                Realizar convenio
+              Realizar convenio
               </button>
               <br /><br />
               <h3>Ir a la firma de la relacion del alumno</h3>
               <button class="btn btn-success mt-3" @click="redirigirFirmarRelacion">
-                Firmar relación del alumno
+              Firmar relación del alumno
               </button>
             </div>
-          </div>
+            </div>
           <!-- Modificar Alumnos -->
           <div class="card mb-4" v-if="mostrarModificarAlumnos">
             <div class="card-header text-black">
@@ -349,8 +323,7 @@
             </div>
             <div class="card-body p-4">
               <h5>
-                Asignar todos los alumnos a PENDIENTE DE ASIGNACION DE
-                PRACTICAS
+                Asignar todos los alumnos a PENDIENTE DE ASIGNACION DE PRACTICAS
               </h5>
               <label for="cursoSeleccionado" class="form-label">Seleccionar Curso:</label>
               <select class="form-select mb-3" v-model="cursoSeleccionado">
@@ -381,18 +354,12 @@
                 <input type="text" class="form-control mb-2" v-model="alumno.notasAcademicas" />
                 <textarea class="form-control mb-2" rows="2" v-model="alumno.observaciones"></textarea>
                 <select class="form-select mt-2" v-model="alumno.estado_practicas">
-                  <option value="NO REALIZA PRACTICAS">
-                    NO REALIZA PRACTICAS
-                  </option>
-                  <option value="PENDIENTE ASIGNACION DE PRACTICAS">
-                    PENDIENTE ASIGNACION DE PRACTICAS
-                  </option>
-                  <option value="ASIGNADO A EMPRESA">
-                    ASIGNADO A EMPRESA
-                  </option>
+                  <option value="NO REALIZA PRACTICAS">NO REALIZA PRACTICAS</option>
+                  <option value="PENDIENTE ASIGNACION DE PRACTICAS">PENDIENTE ASIGNACION DE PRACTICAS</option>
+                  <option value="ASIGNADO A EMPRESA">ASIGNADO A EMPRESA</option>
                   <option value="FINALIZADAS">FINALIZADAS</option>
                 </select>
-                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarAlumno(alumno.codigo)">
+                <button class="btn btn-warning btn-sm float-end mt-2" @click="actualizarAlumno(alumno)">
                   Actualizar
                 </button>
               </div>
@@ -497,39 +464,40 @@ nuevoContacto: {
         };
       },
       computed: {
-        cursosUnicos() {
-          return [...new Set(this.listado.map((alumno) => alumno.clase))];
-        },
         alumnosFiltrados() {
           let alumnos = this.listado;
 
           if (this.cursoSeleccionado) {
-            alumnos = alumnos.filter(
-              (alumno) => alumno.clase === this.cursoSeleccionado
-            );
+        alumnos = alumnos.filter(
+          (alumno) => alumno.clase === this.cursoSeleccionado
+        );
           }
 
           if (this.busqueda) {
-            const busquedaMinuscula = this.busqueda.toLowerCase();
-            alumnos = alumnos.filter(
-              (alumno) =>
-                alumno.nombre.toLowerCase().includes(busquedaMinuscula)
-            );
+        const busquedaMinuscula = this.busqueda.toLowerCase();
+        alumnos = alumnos.filter(
+          (alumno) =>
+            alumno.nombre.toLowerCase().includes(busquedaMinuscula)
+        );
           }
 
           return alumnos;
         },
         empresasFiltradas() {
           if (!this.busquedaEmpresa) {
-            return this.listadoEmpresas;
+        return this.listadoEmpresas;
           }
 
           const busquedaMinuscula = this.busquedaEmpresa.toLowerCase();
           return this.listadoEmpresas.filter(
-            (empresa) =>
-              empresa.nombre.toLowerCase().includes(busquedaMinuscula)
+        (empresa) =>
+          empresa.nombre.toLowerCase().includes(busquedaMinuscula)
           );
         },
+        cursosUnicos() {
+          const cursos = this.listado.map((alumno) => alumno.clase);
+          return [...new Set(cursos)];
+        }
       },
       mounted() {
   axios
@@ -574,13 +542,30 @@ nuevoContacto: {
               return "";
           }
         },
-        actualizarAlumno(codigo) {
-          alert(`Alumno actualizado`);
-        },
-        actualizarEmpresa(codigo) {
-          alert(`Empresa actualizada`);
-        },
-        asignarTodosAlumnos() {
+        actualizarAlumno(alumno) {
+    axios.put(`http://localhost:3000/alumnos/${alumno.codigo}`, alumno)
+      .then((response) => {
+        alert(`Alumno ${alumno.nombre} actualizado correctamente`);
+      })
+      .catch((error) => {
+        console.error("Error al actualizar el alumno:", error);
+        alert("Error al actualizar el alumno");
+      });
+  },
+
+  actualizarEmpresa(empresa) {
+  axios.put(`http://localhost:3000/empresas/${empresa.codigo}`, empresa)
+    .then((response) => {
+      alert(`Empresa ${empresa.nombre} actualizada correctamente`);
+    })
+    .catch((error) => {
+      console.error("Error al actualizar la empresa:", error);
+      alert("Error al actualizar la empresa");
+    });
+},
+
+         
+       asignarTodosAlumnos() {
           if (!this.cursoSeleccionado) {
             alert("Selecciona un curso");
             return;
